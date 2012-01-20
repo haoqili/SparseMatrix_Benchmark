@@ -1,0 +1,48 @@
+I/************ Main Activity: ( 1301): clicked slave waiting to recieve button
+I/...... SlaveNetworkThread( 1301): !!!! Received UDP payload: 48303
+I/...... SlaveNetworkThread( 1301): multiply worker / my portion of the matrix
+D/JGF     ( 1301): SparseRunner running...
+D/JGF     ( 1301): SparseRunner finished.
+I/...... SlaveNetworkThread( 1301): send reply back to master Start
+I/...... SlaveNetworkThread( 1301): send reply back to master Finished
+I/...... SlaveNetworkThread( 1301): :D:D Work finished in 4665 ms!
+I/...... SlaveNetworkThread( 1301): closing socket ..
+I/************ Main Activity: ( 1301): clicked slave waiting to recieve button
+I/...... SlaveNetworkThread( 1301): !!!! Received UDP payload: 48303
+I/...... SlaveNetworkThread( 1301): multiply worker / my portion of the matrix
+D/JGF     ( 1301): SparseRunner running...
+D/JGF     ( 1301): SparseRunner finished.
+I/...... SlaveNetworkThread( 1301): send reply back to master Start
+I/...... SlaveNetworkThread( 1301): send reply back to master Finished
+I/...... SlaveNetworkThread( 1301): :D:D Work finished in 4627 ms!
+I/...... SlaveNetworkThread( 1301): closing socket ..
+I/TelephonyRegistry(  112): notifyServiceState: 1 home null null null  GPRS CSS not supported -1 -1RoamInd: -1DefRoamInd: -1EmergOnly: true
+I/TelephonyRegistry(  112): notifyDataConnection: state=0 isDataConnectivityPossible=false reason=null interfaceName=null networkType=1
+I/************ Main Activity: ( 1301): clicked slave waiting to recieve button
+I/...... SlaveNetworkThread( 1301): !!!! Received UDP payload: 48303
+I/...... SlaveNetworkThread( 1301): multiply worker / my portion of the matrix
+D/JGF     ( 1301): SparseRunner running...
+D/JGF     ( 1301): SparseRunner finished.
+I/...... SlaveNetworkThread( 1301): send reply back to master Start
+I/...... SlaveNetworkThread( 1301): send reply back to master Finished
+I/...... SlaveNetworkThread( 1301): :D:D Work finished in 4621 ms!
+I/...... SlaveNetworkThread( 1301): closing socket ..
+I/************ Main Activity: ( 1301): clicked slave waiting to recieve button
+I/...... SlaveNetworkThread( 1301): !!!! Received UDP payload: 48303
+I/...... SlaveNetworkThread( 1301): multiply worker / my portion of the matrix
+D/JGF     ( 1301): SparseRunner running...
+D/JGF     ( 1301): SparseRunner finished.
+I/...... SlaveNetworkThread( 1301): send reply back to master Start
+I/...... SlaveNetworkThread( 1301): send reply back to master Finished
+I/...... SlaveNetworkThread( 1301): :D:D Work finished in 4620 ms!
+I/...... SlaveNetworkThread( 1301): closing socket ..
+I/************ Main Activity: ( 1301): clicked slave waiting to recieve button
+D/dalvikvm( 1301): GC_CONCURRENT freed 1349K, 60% free 2719K/6727K, external 1625K/2137K, paused 8ms+2ms
+I/...... SlaveNetworkThread( 1301): !!!! Received UDP payload: 48303
+I/...... SlaveNetworkThread( 1301): multiply worker / my portion of the matrix
+D/JGF     ( 1301): SparseRunner running...
+D/JGF     ( 1301): SparseRunner finished.
+I/...... SlaveNetworkThread( 1301): send reply back to master Start
+I/...... SlaveNetworkThread( 1301): send reply back to master Finished
+I/...... SlaveNetworkThread( 1301): :D:D Work finished in 4618 ms!
+I/...... SlaveNetworkThread( 1301): closing socket ..

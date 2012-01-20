@@ -1,0 +1,226 @@
+I/************ Main Activity: ( 1531): clicked master benchmark button
+I/******** ParaApp: ( 1531): In Constructor
+I/******** ParaApp: ( 1531): startBenchmark() ......
+I/******** ParaApp: ( 1531): JGFrun() start ......;
+D/dalvikvm( 1531): GC_EXPLICIT freed 91K, 50% free 2834K/5575K, external 1625K/2137K, paused 18ms
+I/******** ParaApp: ( 1531): JGFkernel Starting benchmark, nthreads = 2
+I/******** ParaApp: ( 1531): ..
+I/******** ParaApp: ( 1531): making piece of nthread = 1
+I/SparseRunner( 1531): SparseRunner initializing ................
+D/JGF     ( 1531): SparseRunner created.
+I/******** ParaApp: ( 1531): Serializing SparseRunner into Serializable for region 1,0...
+I/******** ParaApp: ( 1531): JGFkernel Sending Serializable with payload bytes: 48303
+I/******** ParaApp: ( 1531): sendToSlave for nthread = 1
+I/******** ParaApp: ( 1531):       Slave addr: 192.168.5.20
+I/...... SlaveNetworkThread( 1531): !!!! Received UDP payload: 48303
+I/...... SlaveNetworkThread( 1531): multiply worker / my portion of the matrix
+I/******** ParaApp: ( 1531): ..
+I/******** ParaApp: ( 1531): making piece of nthread = 0
+I/SparseRunner( 1531): SparseRunner initializing ................
+D/JGF     ( 1531): SparseRunner created.
+I/******** ParaApp: ( 1531): Serializing SparseRunner into Serializable for region 0,0...
+I/******** ParaApp: ( 1531): JGFkernel Sending Serializable with payload bytes: 48303
+I/******** ParaApp: ( 1531): sendToSlave for nthread = 0
+I/******** ParaApp: ( 1531):       Slave addr: 192.168.5.1
+I/******** ParaApp: ( 1531): JGFrun() finished ^^^^^^^^^^^^^
+D/JGF     ( 1531): SparseRunner running...
+D/JGF     ( 1531): SparseRunner finished.
+D/dalvikvm( 1531): GC_CONCURRENT freed 368K, 51% free 2988K/6023K, external 1625K/2137K, paused 1ms+1ms
+I/...... SlaveNetworkThread( 1531): send reply back to master Start
+I/...... MasterNetworkThread( 1531): master received a reply of length: 48303
+I/...... SlaveNetworkThread( 1531): send reply back to master Finished
+I/...... SlaveNetworkThread( 1531): :D:D Work finished in 5141 ms!
+I/...... SlaveNetworkThread( 1531): closing socket ..
+I/******** ParaApp: ( 1531): starting to handle completed sparserunner
+I/******** ParaApp: ( 1531): updated barrier_count = 1 nthreads = 2
+I/...... MasterNetworkThread( 1531): master received a reply of length: 48303
+I/******** ParaApp: ( 1531): starting to handle completed sparserunner
+I/******** ParaApp: ( 1531): updated barrier_count = 2 nthreads = 2
+I/******** ParaApp: ( 1531): Yay barrier count is equal to nthreads!
+I/******** ParaApp: ( 1531): ###################################################
+I/******** ParaApp: ( 1531): ############ DONE!!!!!!!! :D:D:D:D:D:D ############
+I/******** ParaApp: ( 1531): ###################################################
+I/******** ParaApp: ( 1531): JGFrun finished in 6911ms
+I/******** ParaApp: ( 1531): All slaves finished in 6632ms
+I/...... MasterNetworkThread( 1531): isEnd is here!!!!!! closing socket ...
+I/************ Main Activity: ( 1531): clicked master benchmark button
+I/******** ParaApp: ( 1531): In Constructor
+I/******** ParaApp: ( 1531): startBenchmark() ......
+I/******** ParaApp: ( 1531): JGFrun() start ......;
+D/dalvikvm( 1531): GC_EXPLICIT freed 547K, 54% free 2906K/6279K, external 1625K/2137K, paused 18ms
+I/******** ParaApp: ( 1531): JGFkernel Starting benchmark, nthreads = 2
+I/******** ParaApp: ( 1531): ..
+I/******** ParaApp: ( 1531): making piece of nthread = 1
+I/SparseRunner( 1531): SparseRunner initializing ................
+D/JGF     ( 1531): SparseRunner created.
+I/******** ParaApp: ( 1531): Serializing SparseRunner into Serializable for region 1,0...
+I/******** ParaApp: ( 1531): JGFkernel Sending Serializable with payload bytes: 48303
+I/******** ParaApp: ( 1531): sendToSlave for nthread = 1
+I/******** ParaApp: ( 1531):       Slave addr: 192.168.5.20
+I/...... SlaveNetworkThread( 1531): !!!! Received UDP payload: 48303
+I/...... SlaveNetworkThread( 1531): multiply worker / my portion of the matrix
+I/******** ParaApp: ( 1531): ..
+I/******** ParaApp: ( 1531): making piece of nthread = 0
+I/SparseRunner( 1531): SparseRunner initializing ................
+D/JGF     ( 1531): SparseRunner created.
+I/******** ParaApp: ( 1531): Serializing SparseRunner into Serializable for region 0,0...
+I/******** ParaApp: ( 1531): JGFkernel Sending Serializable with payload bytes: 48303
+I/******** ParaApp: ( 1531): sendToSlave for nthread = 0
+I/******** ParaApp: ( 1531):       Slave addr: 192.168.5.1
+I/******** ParaApp: ( 1531): JGFrun() finished ^^^^^^^^^^^^^
+D/JGF     ( 1531): SparseRunner running...
+D/JGF     ( 1531): SparseRunner finished.
+I/...... SlaveNetworkThread( 1531): send reply back to master Start
+I/...... MasterNetworkThread( 1531): master received a reply of length: 48303
+I/...... SlaveNetworkThread( 1531): send reply back to master Finished
+I/...... SlaveNetworkThread( 1531): :D:D Work finished in 5110 ms!
+I/...... SlaveNetworkThread( 1531): closing socket ..
+D/dalvikvm( 1531): GC_CONCURRENT freed 641K, 56% free 2812K/6279K, external 1625K/2137K, paused 2ms+2ms
+I/******** ParaApp: ( 1531): starting to handle completed sparserunner
+I/******** ParaApp: ( 1531): updated barrier_count = 1 nthreads = 2
+I/...... MasterNetworkThread( 1531): master received a reply of length: 48303
+I/******** ParaApp: ( 1531): starting to handle completed sparserunner
+I/******** ParaApp: ( 1531): updated barrier_count = 2 nthreads = 2
+I/******** ParaApp: ( 1531): Yay barrier count is equal to nthreads!
+I/******** ParaApp: ( 1531): ###################################################
+I/******** ParaApp: ( 1531): ############ DONE!!!!!!!! :D:D:D:D:D:D ############
+I/******** ParaApp: ( 1531): ###################################################
+I/******** ParaApp: ( 1531): JGFrun finished in 6846ms
+I/******** ParaApp: ( 1531): All slaves finished in 6567ms
+I/...... MasterNetworkThread( 1531): isEnd is here!!!!!! closing socket ...
+I/************ Main Activity: ( 1531): clicked master benchmark button
+I/******** ParaApp: ( 1531): In Constructor
+I/******** ParaApp: ( 1531): startBenchmark() ......
+I/******** ParaApp: ( 1531): JGFrun() start ......;
+D/dalvikvm( 1531): GC_EXPLICIT freed 258K, 53% free 2959K/6279K, external 1625K/2137K, paused 18ms
+I/******** ParaApp: ( 1531): JGFkernel Starting benchmark, nthreads = 2
+I/******** ParaApp: ( 1531): ..
+I/******** ParaApp: ( 1531): making piece of nthread = 1
+I/SparseRunner( 1531): SparseRunner initializing ................
+D/JGF     ( 1531): SparseRunner created.
+I/******** ParaApp: ( 1531): Serializing SparseRunner into Serializable for region 1,0...
+I/******** ParaApp: ( 1531): JGFkernel Sending Serializable with payload bytes: 48303
+I/******** ParaApp: ( 1531): sendToSlave for nthread = 1
+I/******** ParaApp: ( 1531):       Slave addr: 192.168.5.20
+I/...... SlaveNetworkThread( 1531): !!!! Received UDP payload: 48303
+I/...... SlaveNetworkThread( 1531): multiply worker / my portion of the matrix
+I/******** ParaApp: ( 1531): ..
+I/******** ParaApp: ( 1531): making piece of nthread = 0
+I/SparseRunner( 1531): SparseRunner initializing ................
+D/JGF     ( 1531): SparseRunner created.
+I/******** ParaApp: ( 1531): Serializing SparseRunner into Serializable for region 0,0...
+I/******** ParaApp: ( 1531): JGFkernel Sending Serializable with payload bytes: 48303
+I/******** ParaApp: ( 1531): sendToSlave for nthread = 0
+I/******** ParaApp: ( 1531):       Slave addr: 192.168.5.1
+I/******** ParaApp: ( 1531): JGFrun() finished ^^^^^^^^^^^^^
+D/JGF     ( 1531): SparseRunner running...
+D/JGF     ( 1531): SparseRunner finished.
+I/...... SlaveNetworkThread( 1531): send reply back to master Start
+I/...... MasterNetworkThread( 1531): master received a reply of length: 48303
+I/...... SlaveNetworkThread( 1531): send reply back to master Finished
+I/...... SlaveNetworkThread( 1531): :D:D Work finished in 5096 ms!
+I/...... SlaveNetworkThread( 1531): closing socket ..
+D/dalvikvm( 1531): GC_CONCURRENT freed 635K, 54% free 2891K/6279K, external 1625K/2137K, paused 1ms+1ms
+I/******** ParaApp: ( 1531): starting to handle completed sparserunner
+I/******** ParaApp: ( 1531): updated barrier_count = 1 nthreads = 2
+I/...... MasterNetworkThread( 1531): master received a reply of length: 48303
+I/******** ParaApp: ( 1531): starting to handle completed sparserunner
+I/******** ParaApp: ( 1531): updated barrier_count = 2 nthreads = 2
+I/******** ParaApp: ( 1531): Yay barrier count is equal to nthreads!
+I/******** ParaApp: ( 1531): ###################################################
+I/******** ParaApp: ( 1531): ############ DONE!!!!!!!! :D:D:D:D:D:D ############
+I/******** ParaApp: ( 1531): ###################################################
+I/******** ParaApp: ( 1531): JGFrun finished in 6855ms
+I/******** ParaApp: ( 1531): All slaves finished in 6584ms
+I/...... MasterNetworkThread( 1531): isEnd is here!!!!!! closing socket ...
+I/************ Main Activity: ( 1531): clicked master benchmark button
+I/******** ParaApp: ( 1531): In Constructor
+I/******** ParaApp: ( 1531): startBenchmark() ......
+I/******** ParaApp: ( 1531): JGFrun() start ......;
+D/dalvikvm( 1531): GC_EXPLICIT freed 260K, 52% free 3016K/6279K, external 1625K/2137K, paused 18ms
+I/******** ParaApp: ( 1531): JGFkernel Starting benchmark, nthreads = 2
+I/******** ParaApp: ( 1531): ..
+I/******** ParaApp: ( 1531): making piece of nthread = 1
+I/SparseRunner( 1531): SparseRunner initializing ................
+D/JGF     ( 1531): SparseRunner created.
+I/******** ParaApp: ( 1531): Serializing SparseRunner into Serializable for region 1,0...
+I/******** ParaApp: ( 1531): JGFkernel Sending Serializable with payload bytes: 48303
+I/******** ParaApp: ( 1531): sendToSlave for nthread = 1
+I/******** ParaApp: ( 1531):       Slave addr: 192.168.5.20
+I/...... SlaveNetworkThread( 1531): !!!! Received UDP payload: 48303
+I/...... SlaveNetworkThread( 1531): multiply worker / my portion of the matrix
+I/******** ParaApp: ( 1531): ..
+I/******** ParaApp: ( 1531): making piece of nthread = 0
+I/SparseRunner( 1531): SparseRunner initializing ................
+D/JGF     ( 1531): SparseRunner created.
+I/******** ParaApp: ( 1531): Serializing SparseRunner into Serializable for region 0,0...
+I/******** ParaApp: ( 1531): JGFkernel Sending Serializable with payload bytes: 48303
+I/******** ParaApp: ( 1531): sendToSlave for nthread = 0
+I/******** ParaApp: ( 1531):       Slave addr: 192.168.5.1
+I/******** ParaApp: ( 1531): JGFrun() finished ^^^^^^^^^^^^^
+D/JGF     ( 1531): SparseRunner running...
+D/JGF     ( 1531): SparseRunner finished.
+I/...... SlaveNetworkThread( 1531): send reply back to master Start
+I/...... MasterNetworkThread( 1531): master received a reply of length: 48303
+I/...... SlaveNetworkThread( 1531): send reply back to master Finished
+I/...... SlaveNetworkThread( 1531): :D:D Work finished in 5110 ms!
+I/...... SlaveNetworkThread( 1531): closing socket ..
+D/dalvikvm( 1531): GC_CONCURRENT freed 651K, 53% free 2967K/6279K, external 1625K/2137K, paused 1ms+2ms
+I/******** ParaApp: ( 1531): starting to handle completed sparserunner
+I/******** ParaApp: ( 1531): updated barrier_count = 1 nthreads = 2
+I/...... MasterNetworkThread( 1531): master received a reply of length: 48303
+I/******** ParaApp: ( 1531): starting to handle completed sparserunner
+I/******** ParaApp: ( 1531): updated barrier_count = 2 nthreads = 2
+I/******** ParaApp: ( 1531): Yay barrier count is equal to nthreads!
+I/******** ParaApp: ( 1531): ###################################################
+I/******** ParaApp: ( 1531): ############ DONE!!!!!!!! :D:D:D:D:D:D ############
+I/******** ParaApp: ( 1531): ###################################################
+I/******** ParaApp: ( 1531): JGFrun finished in 6859ms
+I/******** ParaApp: ( 1531): All slaves finished in 6582ms
+I/...... MasterNetworkThread( 1531): isEnd is here!!!!!! closing socket ...
+I/************ Main Activity: ( 1531): clicked master benchmark button
+I/******** ParaApp: ( 1531): In Constructor
+I/******** ParaApp: ( 1531): startBenchmark() ......
+I/******** ParaApp: ( 1531): JGFrun() start ......;
+D/dalvikvm( 1531): GC_FOR_MALLOC freed 213K, 54% free 2925K/6279K, external 1625K/2137K, paused 12ms
+D/dalvikvm( 1531): GC_EXPLICIT freed 33K, 52% free 3070K/6279K, external 1625K/2137K, paused 17ms
+I/******** ParaApp: ( 1531): JGFkernel Starting benchmark, nthreads = 2
+I/******** ParaApp: ( 1531): ..
+I/******** ParaApp: ( 1531): making piece of nthread = 1
+I/SparseRunner( 1531): SparseRunner initializing ................
+D/JGF     ( 1531): SparseRunner created.
+I/******** ParaApp: ( 1531): Serializing SparseRunner into Serializable for region 1,0...
+I/******** ParaApp: ( 1531): JGFkernel Sending Serializable with payload bytes: 48303
+I/******** ParaApp: ( 1531): sendToSlave for nthread = 1
+I/******** ParaApp: ( 1531):       Slave addr: 192.168.5.20
+I/...... SlaveNetworkThread( 1531): !!!! Received UDP payload: 48303
+I/...... SlaveNetworkThread( 1531): multiply worker / my portion of the matrix
+I/******** ParaApp: ( 1531): ..
+I/******** ParaApp: ( 1531): making piece of nthread = 0
+I/SparseRunner( 1531): SparseRunner initializing ................
+D/JGF     ( 1531): SparseRunner created.
+I/******** ParaApp: ( 1531): Serializing SparseRunner into Serializable for region 0,0...
+I/******** ParaApp: ( 1531): JGFkernel Sending Serializable with payload bytes: 48303
+I/******** ParaApp: ( 1531): sendToSlave for nthread = 0
+I/******** ParaApp: ( 1531):       Slave addr: 192.168.5.1
+I/******** ParaApp: ( 1531): JGFrun() finished ^^^^^^^^^^^^^
+D/JGF     ( 1531): SparseRunner running...
+D/JGF     ( 1531): SparseRunner finished.
+I/...... SlaveNetworkThread( 1531): send reply back to master Start
+I/...... MasterNetworkThread( 1531): master received a reply of length: 48303
+I/...... SlaveNetworkThread( 1531): send reply back to master Finished
+I/...... SlaveNetworkThread( 1531): :D:D Work finished in 5125 ms!
+I/...... SlaveNetworkThread( 1531): closing socket ..
+D/dalvikvm( 1531): GC_CONCURRENT freed 637K, 53% free 3037K/6343K, external 1625K/2137K, paused 2ms+1ms
+I/******** ParaApp: ( 1531): starting to handle completed sparserunner
+I/******** ParaApp: ( 1531): updated barrier_count = 1 nthreads = 2
+I/...... MasterNetworkThread( 1531): master received a reply of length: 48303
+I/******** ParaApp: ( 1531): starting to handle completed sparserunner
+I/******** ParaApp: ( 1531): updated barrier_count = 2 nthreads = 2
+I/******** ParaApp: ( 1531): Yay barrier count is equal to nthreads!
+I/******** ParaApp: ( 1531): ###################################################
+I/******** ParaApp: ( 1531): ############ DONE!!!!!!!! :D:D:D:D:D:D ############
+I/******** ParaApp: ( 1531): ###################################################
+I/******** ParaApp: ( 1531): JGFrun finished in 6903ms
+I/******** ParaApp: ( 1531): All slaves finished in 6608ms
+I/...... MasterNetworkThread( 1531): isEnd is here!!!!!! closing socket ...
