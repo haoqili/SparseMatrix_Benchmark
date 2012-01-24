@@ -7,20 +7,28 @@
 <TextView
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:text="Hello World, SparseMatrix_Benchmark"
+    android:text="SparseMatrix_Benchmark"
     />
 
 
 <Button android:id="@+id/button_slave"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:text="Start Benchmark Slave keeps on receiving" />
+    android:padding="2dp"
+    android:text="1. Start All Benchmark Slaves" />
 
 <Button android:id="@+id/button_master"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:text="Start Benchmark Master" />
+    android:padding="2dp"
+    android:text="2. Start Benchmark Master" />
 
+<ListView android:id="@+id/logList"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:stackFromBottom="true"
+    android:transcriptMode="alwaysScroll">
+</ListView> 
 
 </LinearLayout>
 

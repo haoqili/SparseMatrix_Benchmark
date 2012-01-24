@@ -17,10 +17,10 @@ How to Run
 2. Look at Glabals.java to change parameters
 3. Change the IP address of the master to 192.168.5.20
 4. Change the IP address of the slave to 192.168.5.1
-5. On the slave, click on "Start Benchmark Slave ...."
+5. On the slave, click on "1. Start All Benchmark Slaves"
 6. Open logcat on the master
-7. On the master, click on "Start Benchmark Master"
-8. Observe `All slaves finished in xxxms`
+7. On the master, click on "2. Start Benchmark Master"
+8. Observe a bunch of smiley faces `:D` and `All slaves finished in xxxms`
 
 You must start slaves first to start waiting for packets from the master.
 
@@ -38,7 +38,7 @@ To Do for Me
 ----------
 
 * Change UDP to TCP to test if connection is better
-* Dynamic IP ... sent by slaves at start
+* <del>Dynamic IP ... sent by slaves at start</del> not useful since we're testing with 5 phones
 
 Questions
 ----------

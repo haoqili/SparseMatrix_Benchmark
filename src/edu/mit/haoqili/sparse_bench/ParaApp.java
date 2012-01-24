@@ -10,14 +10,22 @@ import java.io.OptionalDataException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.Socket;
 import java.util.Random;
 
+import android.os.Handler;
 import android.util.Log;
 
 public class ParaApp {
+	private static final String TAG = "... ParaApp";
+			
 	/* Network stuff */
-	private DatagramSocket mySocket;
-
+	// UDP
+	private DatagramSocket masterSendUDPSoc;
+	
+	// TCP - one connection for each slave phone
+	private Socket[] masterSendTCPSocs;
+	
 	/* Largely copied from DIPLOMAMatrix's UserApp */
 	long kernelStartTime, kernelStopTime;
     long runStartTime, runStopTime;
@@ -69,14 +77,18 @@ public class ParaApp {
     int[] row;
     int[] lowsum;
     int[] highsum; 
-
+    
+	Handler logHandler;
     private void logm(String line){
-        Log.i("******** ParaApp: ", line);
+        Log.i(TAG, line);
+		logHandler.obtainMessage(0, TAG+": "+line).sendToTarget();
     }
 
     /* PARAllel APP constructor */
     //public ParaApp(int nthreads){
-    public ParaApp(){
+    public ParaApp(Handler ha){
+		logHandler = ha;
+
     	logm("In Constructor");
     }
 
@@ -205,7 +217,7 @@ public class ParaApp {
         	logm("..");
         	logm("making piece of nthread = " + i);
             SparseRunner sr = new SparseRunner(global_yt, i, val, row, col, x,
-                    Globals.SPARSE_NUM_ITER, nz, lowsum, highsum);
+                    Globals.SPARSE_NUM_ITER, nz, lowsum, highsum, logHandler);
             byte[] b = null;
             try {
                 logm(String.format(
@@ -216,7 +228,7 @@ public class ParaApp {
                 logm("sendToSlave for nthread = " + i);
                 sendToSlave(b, i);
             } catch (Exception e) {
-            	logm("JGFkerner exception :( e: " + e);
+            	logm("JGFkernel exception :( e: " + e);
                 e.printStackTrace();
             }            
             
@@ -262,11 +274,11 @@ public class ParaApp {
     }
     /** Send an UDP packet to the broadcast address */
     private void sendToSlave(byte[] sendData, int thd_i) throws IOException {
-    	mySocket = new DatagramSocket();
-    	mySocket.send(new DatagramPacket(sendData, sendData.length,
+    	masterSendUDPSoc = new DatagramSocket();
+    	masterSendUDPSoc.send(new DatagramPacket(sendData, sendData.length,
     			getSlaveAddress(thd_i),
     			Globals.SLAVE_PORT));
-    	mySocket.close();
+    	masterSendUDPSoc.close();
 	}
 	private InetAddress getSlaveAddress(int i) throws IOException {
 		logm("      Slave addr: " + Globals.SLAVE_ADDRS[i]);
@@ -311,9 +323,9 @@ public class ParaApp {
 
 			kernelStopTime = System.currentTimeMillis();
 
-			logm("###################################################");
-			logm("############ DONE!!!!!!!! :D:D:D:D:D:D ############");
-			logm("###################################################");
+			logm(":D:D:D:D:D:D:D:D:D:D:D:D:D:D:D:D:D:D:D");
+			logm(":D:D:D:D !!!! DONE !!!!!!!! :D:D:D:D:D:D:D");
+			logm(":D:D:D:D:D:D:D:D:D:D:D:D:D:D:D:D:D:D:D");
 			
 			runStopTime = System.currentTimeMillis();
 			logm(String.format("JGFrun finished in %dms", runStopTime

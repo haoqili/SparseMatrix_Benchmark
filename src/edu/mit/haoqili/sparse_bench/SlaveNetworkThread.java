@@ -11,33 +11,37 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
+import android.os.Handler;
 import android.util.Log;
 
 public class SlaveNetworkThread extends Thread {
-	private static final String TAG = "...... SlaveNetworkThread";
-
+	private static final String TAG = "*** SlaveNetworkThread";
+	
 	// UDP over IPv4 Networking
 	private static final int MAX_PACKET_SIZE = 110592; // bytes
-	private DatagramSocket slaveSocket;
+	private DatagramSocket slaveUDPSoc;
 	private boolean socketOK = true;
 	
+	Handler logHandler;
 	public void logm(String line) {
 		Log.i(TAG, line);
+		logHandler.obtainMessage(0, TAG+": "+line).sendToTarget();
 	}
 
 	/** NetworkThread constructor */
-	public SlaveNetworkThread() {
+	public SlaveNetworkThread(Handler ha) {
 		restartSocket();
+		logHandler = ha;
 	}
 
 	/** Start of r */
 	public void restartSocket() {
-		if (slaveSocket != null && !slaveSocket.isClosed()) //doesn't get here
-			slaveSocket.close();
+		if (slaveUDPSoc != null && !slaveUDPSoc.isClosed()) //doesn't get here
+			slaveUDPSoc.close();
 
 		// Create UDP socket for receiving packets
 		try {
-			slaveSocket = new DatagramSocket(Globals.SLAVE_PORT);
+			slaveUDPSoc = new DatagramSocket(Globals.SLAVE_PORT);
 			/* Are these things necessary?
 			 * mySocket.setBroadcast(true);
 			logm(String.format(
@@ -72,7 +76,7 @@ public class SlaveNetworkThread extends Thread {
 			DatagramPacket dPacket = new DatagramPacket(receiveData,
 					receiveData.length);
 			try {
-				slaveSocket.receive(dPacket);
+				slaveUDPSoc.receive(dPacket);
 			} catch (IOException e) {
 				logm("mySocket.receive broke :(");
 				Log.e(TAG, "Exception on mySocket.receive: " + e.getMessage());
@@ -93,6 +97,7 @@ public class SlaveNetworkThread extends Thread {
 			SparseRunner sr = null;
 			try {
 				sr = srFromBytes(receiveData);
+				sr.setHandler(logHandler); // MUST be called before next line
 				sr.run(); // more efficient than the 3 lines below
 				/*
 				Thread th = new Thread(sr);
@@ -115,13 +120,13 @@ public class SlaveNetworkThread extends Thread {
 			
 		} // end while(socketOK)
 		logm("closing socket ..");
-		slaveSocket.close();
+		slaveUDPSoc.close();
 	} // end run()
 
 	/** Send an UDP packet to the broadcast address */
 	private void sendData(byte[] sendData) throws IOException {
 		logm("send reply back to master Start");
-		slaveSocket.send(new DatagramPacket(sendData, sendData.length,
+		slaveUDPSoc.send(new DatagramPacket(sendData, sendData.length,
 				getMasterAddress(), Globals.MASTER_PORT));
 		logm("send reply back to master Finished");
 	}

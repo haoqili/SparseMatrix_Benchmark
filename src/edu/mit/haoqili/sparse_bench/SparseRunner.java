@@ -5,10 +5,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+import android.os.Handler;
 import android.util.Log;
 
 class SparseRunner implements Serializable, Runnable {
 //class SparseRunner implements Runnable {
+	
+	private static final String TAG = "... SparseRunner ";
 
 	private static final long serialVersionUID = 1L;
 
@@ -18,10 +21,20 @@ class SparseRunner implements Serializable, Runnable {
 	double val[], x[];
 	int lowsum[];
 	int highsum[];
+	
+	// log
+	transient Handler logHandler = null; // transient so it doesn't get serialized
+	public void logm(String line) {
+		Log.i(TAG, line);
+		logHandler.obtainMessage(0, TAG+": "+line).sendToTarget();
+	}
 
 	public SparseRunner(double yt[], int id, double val[], int row[], int col[], double x[],
-			int NUM_ITERATIONS, int nz, int lowsum[], int highsum[]) {
-		Log.i("SparseRunner", "SparseRunner initializing ................");
+			int NUM_ITERATIONS, int nz, int lowsum[], int highsum[], Handler ha) {
+		logHandler = ha;
+
+		logm("initializing ...");
+		
 		this.yt = yt;
 		this.id = id;
 		this.x = x;
@@ -33,16 +46,16 @@ class SparseRunner implements Serializable, Runnable {
 		this.lowsum = lowsum;
 		this.highsum = highsum;
 
-		Log.d("JGF", "SparseRunner created.");
+		logm("created.");
 	}
 
 	public void run() {
-		Log.d("JGF", "SparseRunner running...");
+		logm("running...");
 
 		for (int reps = 0; reps < NUM_ITERATIONS; reps++) {
 			/*// test if SparseRunner is running
 			 if ((reps % 1000) == 0) {
-				Log.i(".", " " + reps);
+				logm(", " + reps);
 			}*/
 			// Entire array is given, and we pick a subset ranging from
 			// lowsum[id] to highsum[id]
@@ -51,9 +64,11 @@ class SparseRunner implements Serializable, Runnable {
 			}
 		}
 
-		Log.d("JGF", "SparseRunner finished.");
+		logm("finished.");
 	}
-
+	public void setHandler(Handler ha){
+		logHandler = ha;
+	}
 	private void writeObject(ObjectOutputStream out) throws IOException {
 		out.defaultWriteObject();
 	}

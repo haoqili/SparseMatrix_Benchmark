@@ -6,46 +6,56 @@ import java.io.ObjectInputStream;
 import java.io.OptionalDataException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.Socket;
 
+import android.os.Handler;
 import android.util.Log;
 
 public class MasterNetworkThread extends Thread {
-	private static final String TAG = "...... MasterNetworkThread";
+	private static final String TAG = "*** MasterNetworkThread";
 
 	private ParaApp myParaApp = null;
 	
 	private boolean isEnd = false;
 	
 	// UDP over IPv4 Networking
+	private DatagramSocket masterRecvUDPSoc;
+	
+	// TCP - one connection for each slave phone
+	private Socket[] masterRecvTCPSocs;
+	
 	private static final int MAX_PACKET_SIZE = 110592; // bytes
-	private DatagramSocket masterSocket;
 	private boolean socketOK = true;
 	
+	Handler logHandler;
 	public void logm(String line) {
 		Log.i(TAG, line);
+		logHandler.obtainMessage(0, TAG+": "+line).sendToTarget();
 	}
 
 	/** NetworkThread constructor */
-	public MasterNetworkThread() {
+	public MasterNetworkThread(Handler ha) {
+		logHandler = ha;
+		
 		// step 2. starts its thread to receive UDP packet results from slaves
 		restartSocket();
 	}
 	
 	/** Send work to the slaves **/
 	public void distributeWork(){
-		myParaApp = new ParaApp();
+		myParaApp = new ParaApp(logHandler);
 		myParaApp.startBenchmark();		
 	}
 	
 
 	/** Start of r */
 	public void restartSocket() {
-		if (masterSocket != null && !masterSocket.isClosed()) // doesn't gets here
-			masterSocket.close();
+		if (masterRecvUDPSoc != null && !masterRecvUDPSoc.isClosed()) // doesn't gets here
+			masterRecvUDPSoc.close();
 
 		// Create UDP socket for receiving packets
 		try {
-			masterSocket = new DatagramSocket(Globals.MASTER_PORT);
+			masterRecvUDPSoc = new DatagramSocket(Globals.MASTER_PORT);
 			/* Are these things necessary?
 			 * mySocket.setBroadcast(true);
 			logm(String.format(
@@ -80,7 +90,7 @@ public class MasterNetworkThread extends Thread {
 			DatagramPacket dPacket = new DatagramPacket(receiveData,
 					receiveData.length);
 			try {
-				masterSocket.receive(dPacket);
+				masterRecvUDPSoc.receive(dPacket);
 			} catch (IOException e) {
 				logm("mySocket.receive broke :(");
 				Log.e(TAG, "Exception on mySocket.receive: " + e.getMessage());
@@ -90,6 +100,7 @@ public class MasterNetworkThread extends Thread {
 			
 			logm("master received a reply of length: " + dPacket.getLength());
 
+			// handle the reply, put them together
 			//analogous to diplomamatrix UserApp.java's
 			//    handleDSMReply() 
 			long startTime = System.currentTimeMillis();
@@ -112,7 +123,7 @@ public class MasterNetworkThread extends Thread {
 			
 		} // end while(socketOK)
 		logm("isEnd is here!!!!!! closing socket ...");
-		masterSocket.close();
+		masterRecvUDPSoc.close();
 	} // end run()
 	
 	/**
