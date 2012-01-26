@@ -1,0 +1,31 @@
+I/*** SlaveTCPThread( 3993): here, getting stream
+I/*** SlaveTCPThread( 3993): while 0 != 110592, 0
+I/*** SlaveTCPThread( 3993): 0: 0xAC debugc: 0
+I/*** SlaveTCPThread( 3993): 800: 0xB8 debugc: 0
+I/*** SlaveTCPThread( 3993): while 1448 != 110592, 2896
+I/*** SlaveTCPThread( 3993): 1600: 0x4B debugc: 0
+I/*** SlaveTCPThread( 3993): 2400: 0xB8 debugc: 0
+I/*** SlaveTCPThread( 3993): 3200: 0x00 debugc: 1
+I/*** SlaveTCPThread( 3993): 4000: 0x00 debugc: 2
+I/*** SlaveTCPThread( 3993): while 4344 != 110592, 0
+I/*** SlaveTCPThread( 3993): 4800: 0x00 debugc: 1
+... all 0's
+I/*** SlaveTCPThread( 3993): !!!! Received TCP payload read 48303 bytes
+I/*** SlaveTCPThread( 3993): bytes: [B@4052a930
+I/*** SlaveTCPThread( 3993): 0: 0x00 debugc: 1
+I/*** SlaveTCPThread( 3993): 800: 0x00 debugc: 2
+I/*** SlaveTCPThread( 3993): 1600: 0x00 debugc: 3
+I/*** SlaveTCPThread( 3993): 2400: 0x13 debugc: 0
+I/*** SlaveTCPThread( 3993): 3200: 0x28 debugc: 0
+I/*** SlaveTCPThread( 3993): 4000: 0x45 debugc: 0
+I/*** SlaveTCPThread( 3993): 4800: 0x00 debugc: 1
+I/*** SlaveTCPThread( 3993): 5600: 0x00 debugc: 2
+I/*** SlaveTCPThread( 3993): 6400: 0x00 debugc: 3
+I/*** SlaveTCPThread( 3993): 7200: 0x00 debugc: 4
+I/*** SlaveTCPThread( 3993): 8000: 0x00 debugc: 5
+I/*** SlaveTCPThread( 3993): 8800: 0x00 debugc: 6
+I/*** SlaveTCPThread( 3993): multiply worker / my portion of the matrix
+I/*** SlaveTCPThread( 3993): tmp 1
+I/*** SlaveTCPThread( 3993): here 1
+I/*** SlaveTCPThread( 3993): here 2
+I/*** SlaveTCPThread( 3993): Exception deserializing SparseRunner! e: java.io.StreamCorruptedException
