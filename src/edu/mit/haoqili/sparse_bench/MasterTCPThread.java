@@ -11,8 +11,8 @@ import java.net.Socket;
 import android.os.Handler;
 import android.util.Log;
 
-public class MasterNetworkThread extends Thread {
-	private static final String TAG = "*** MasterNetworkThread";
+public class MasterTCPThread extends Thread {
+	private static final String TAG = "*** MasterTCPThread";
 
 	private ParaApp myParaApp = null;
 	
@@ -34,17 +34,14 @@ public class MasterNetworkThread extends Thread {
 	}
 
 	/** NetworkThread constructor */
-	public MasterNetworkThread(Handler ha) {
+	public MasterTCPThread(Handler ha) {
 		logHandler = ha;
-		
-		// step 2. starts its thread to receive UDP packet results from slaves
-		restartSocket();
 	}
 	
 	/** Send work to the slaves **/
 	public void distributeWork(){
 		myParaApp = new ParaApp(logHandler);
-		myParaApp.startBenchmark(true);		
+		myParaApp.startBenchmark(false);		
 	}
 	
 
@@ -99,18 +96,7 @@ public class MasterNetworkThread extends Thread {
 			}
 			
 			logm("master received a reply of length: " + dPacket.getLength());
-			int debugc = 0; // TODO: DEBUG
-			for (int j=0; j<receiveData.length; j++) {
-				if (j%800 == 0){
-					if (receiveData[j] == 0) {
-						if (debugc > 5) break;
-						debugc++;
-					} else {
-						debugc = 0;
-					}
-					logm(j + ": " + String.format("0x%02X", receiveData[j]) + " debugc: " + debugc);
-				}
-			} //end debug
+
 			// handle the reply, put them together
 			//analogous to diplomamatrix UserApp.java's
 			//    handleDSMReply() 
@@ -120,7 +106,7 @@ public class MasterNetworkThread extends Thread {
 				sr = srFromBytes(receiveData);
 				// handle completed SparseRunner
 				if (myParaApp == null) {
-					logm("Whoa MasterNetworkThread received data even before ParaApp sent out data");
+					logm("Whoa MasterTCPThread received data even before ParaApp sent out data");
 					throw new NullPointerException("no myParaApp");
 				}
 				isEnd = myParaApp.handleCompletedSparseRunner(sr);

@@ -32,6 +32,7 @@ public class SlaveNetworkThread extends Thread {
 	public SlaveNetworkThread(Handler ha) {
 		restartSocket();
 		logHandler = ha;
+		logm("in slave network thread");
 	}
 
 	/** Start of r */
@@ -41,7 +42,7 @@ public class SlaveNetworkThread extends Thread {
 
 		// Create UDP socket for receiving packets
 		try {
-			slaveUDPSoc = new DatagramSocket(Globals.SLAVE_PORT);
+			slaveUDPSoc = new DatagramSocket(Globals.UDP_SLAVE_PORT);
 			/* Are these things necessary?
 			 * mySocket.setBroadcast(true);
 			logm(String.format(
@@ -67,14 +68,16 @@ public class SlaveNetworkThread extends Thread {
 		return socketOK;
 	}
 
-	/** Thread's receive loop for UDP packets */
+	/** Thread's process loop for UDP packets */
 	@Override
 	public void run() {
+		logm("In slave's run()");
 		byte[] receiveData = new byte[MAX_PACKET_SIZE];
 
 		while (socketOK) {
 			DatagramPacket dPacket = new DatagramPacket(receiveData,
 					receiveData.length);
+			logm("Slave waiting to receive packet from master ...");
 			try {
 				slaveUDPSoc.receive(dPacket);
 			} catch (IOException e) {
@@ -85,6 +88,7 @@ public class SlaveNetworkThread extends Thread {
 			}
 			
 			logm("!!!! Received UDP payload: " + dPacket.getLength());
+			logm("Bytes: " + receiveData);
 
 			// After this slave got its work (Sparse Runner)
 			// calculate it and reply to the master its solution
@@ -97,17 +101,15 @@ public class SlaveNetworkThread extends Thread {
 			SparseRunner sr = null;
 			try {
 				sr = srFromBytes(receiveData);
+				logm("receive Data: ");
+				debugc(receiveData); //TODO: delete
 				sr.setHandler(logHandler); // MUST be called before next line
-				sr.run(); // more efficient than the 3 lines below
-				/*
-				Thread th = new Thread(sr);
-				th.start();  //calculate this slave's sparse runner
-				// th.join makes sure th is finished
-				// see http://cnapagoda.blogspot.com/2010/01/thread-join-method.html
-				th.join();*/
+				sr.run(); 
 				
 				// reply to Master
 				byte[] reply_data = srToBytes(sr);
+				logm("reply data: ");
+				debugc(reply_data); // TODO: delete
 				sendData(reply_data);
 				long stopTime = System.currentTimeMillis();
 				logm(String.format(":D:D Work finished in %d ms!", stopTime
@@ -123,17 +125,30 @@ public class SlaveNetworkThread extends Thread {
 		slaveUDPSoc.close();
 	} // end run()
 
+	private void debugc(byte[] bytes){
+		int debugc = 0;
+		for (int j=0; j<bytes.length; j++) {
+			if (j%800 == 0){
+				if (bytes[j] == 0) {
+					if (debugc > 5) break;
+					debugc++;
+				} else {
+					debugc = 0;
+				}
+				logm(j + ": " + String.format("0x%02X", bytes[j]) + " debugc: " + debugc);
+			}
+		}
+	}
 	/** Send an UDP packet to the broadcast address */
 	private void sendData(byte[] sendData) throws IOException {
 		logm("send reply back to master Start");
 		slaveUDPSoc.send(new DatagramPacket(sendData, sendData.length,
-				getMasterAddress(), Globals.MASTER_PORT));
+				getMasterAddress(), Globals.UDP_MASTER_PORT));
 		logm("send reply back to master Finished");
 	}
 
 	/** Calculate the broadcast IP we need to send the packet along. */
 	private InetAddress getMasterAddress() throws IOException {
-		// TODO: Fill in Master's IP addr so this slave can reply
 		return InetAddress.getByName(Globals.MASTER_IP_ADDRESS);
 	}
 	

@@ -10,6 +10,7 @@ import java.io.OptionalDataException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Random;
 
@@ -20,11 +21,12 @@ public class ParaApp {
 	private static final String TAG = "... ParaApp";
 			
 	/* Network stuff */
+	private boolean isUDP;
 	// UDP
 	private DatagramSocket masterSendUDPSoc;
 	
 	// TCP - one connection for each slave phone
-	private Socket[] masterSendTCPSocs;
+	private static ServerSocket[] masterSendTCPSocs = new ServerSocket[Globals.NTHREADS];
 	
 	/* Largely copied from DIPLOMAMatrix's UserApp */
 	long kernelStartTime, kernelStopTime;
@@ -92,8 +94,9 @@ public class ParaApp {
     	logm("In Constructor");
     }
 
-    public synchronized void startBenchmark() {
-        logm("startBenchmark() ......");
+    public synchronized void startBenchmark(boolean setisUDP) {
+        isUDP = setisUDP;
+        logm("startBenchmark() ...... with isUDP + " + isUDP);
         // 0 is the size, 0 1 or 2
         JGFrun(0);
     }
@@ -141,6 +144,13 @@ public class ParaApp {
             col[i] = Math.abs(R.nextInt()) % datasizes_N[size];
 
             val[i] = R.nextDouble();
+            /* generate random row index (0, M-1) // TODO: Delete debugging
+            row[i] = 1;
+
+            // generate random column index (0, N-1)
+            col[i] = 1;
+
+            val[i] = 0.5;*/
 
         }
 
@@ -225,7 +235,7 @@ public class ParaApp {
                 b = srToBytes(sr);
                 
                 logm("JGFkernel Sending Serializable with payload bytes: " + b.length);
-                logm("sendToSlave for nthread = " + i);
+                logm("calls sendToSlave() for nthread = " + i + " of length = " + b.length);
                 sendToSlave(b, i);
             } catch (Exception e) {
             	logm("JGFkernel exception :( e: " + e);
@@ -254,6 +264,10 @@ public class ParaApp {
 		for (int i = 0; i < N; i++)
 			A[i] = R.nextDouble() * 1e-6;
 
+		/* TODO: DEBUGGING! CHANGE BACK!!!!!
+		for (int i = 0; i < N; i++)
+			A[i] = 0.5 * 1e-6;*/
+
 		return A;
 	}
 
@@ -274,11 +288,50 @@ public class ParaApp {
     }
     /** Send an UDP packet to the broadcast address */
     private void sendToSlave(byte[] sendData, int thd_i) throws IOException {
-    	masterSendUDPSoc = new DatagramSocket();
-    	masterSendUDPSoc.send(new DatagramPacket(sendData, sendData.length,
-    			getSlaveAddress(thd_i),
-    			Globals.SLAVE_PORT));
-    	masterSendUDPSoc.close();
+    	logm("in sendToSlave, isUDP = " + isUDP);
+    	if (isUDP){ // UDP
+    		logm("Master using UDP to send");
+    		masterSendUDPSoc = new DatagramSocket();
+    		logm("Master using TCP to send byte[] of length = " + sendData.length);
+    		logm("bytes: " + sendData);
+    		int debugc = 0;
+    		for (int j=0; j<sendData.length; j++) {
+    			if (j%800 == 0){
+    				if (sendData[j] == 0) {
+    					if (debugc > 5) break;
+    					debugc++;
+    				} else {
+    					debugc = 0;
+    				}
+    				logm(j + ": " + String.format("0x%02X", sendData[j]) + " debugc: " + debugc);
+    			}
+    		}
+    		masterSendUDPSoc.send(new DatagramPacket(sendData, sendData.length,
+    				getSlaveAddress(thd_i),
+    				Globals.UDP_SLAVE_PORT));
+    		masterSendUDPSoc.close();
+    	} else { // TCP
+    		logm("Master using TCP to send byte[] of length = " + sendData.length);
+    		logm("bytes: " + sendData);
+    		int debugc = 0;
+    		//for (int j=0; j<sendData.length; j++) {
+    		for (int j=0; j<1600; j++) {
+
+    			if (j%10 == 0){
+    				//if (j%800 == 0){
+    				if (sendData[j] == 0) {
+    					if (debugc > 5) break;
+    					debugc++;
+    				} else {
+    					debugc = 0;
+    				}
+    				logm(j + ": " + String.format("0x%02X", sendData[j]) + " debugc: " + debugc);
+    			}
+    		}
+    		masterSendTCPSocs[thd_i] = new ServerSocket(Globals.TCP_SLAVE_PORTS + thd_i);
+    		Thread send_thread = new TCPSendThread(masterSendTCPSocs[thd_i], sendData, logHandler);
+    		send_thread.start();
+    	}
 	}
 	private InetAddress getSlaveAddress(int i) throws IOException {
 		logm("      Slave addr: " + Globals.SLAVE_ADDRS[i]);

@@ -10,18 +10,56 @@
     android:text="SparseMatrix_Benchmark"
     />
 
-
-<Button android:id="@+id/button_slave"
+<LinearLayout
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:padding="2dp"
-    android:text="1. Start All Benchmark Slaves" />
+    android:orientation="horizontal" 
+    android:weightSum="1.0">
 
-<Button android:id="@+id/button_master"
+    <Button
+        android:id="@+id/button_udp_slave"
+        android:layout_width="0dip"
+        android:layout_weight="0.5"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:text="UDP 1. Start Slaves" />
+
+    <Button
+        android:id="@+id/button_udp_master"
+        android:layout_width="0dip"
+        android:layout_weight="0.5"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:text="UDP 2. Start Master" />
+</LinearLayout>
+
+<View android:background="#87CEEB" 
+    android:layout_width = "fill_parent" 
+    android:layout_height="2dip" />
+
+<LinearLayout
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:padding="2dp"
-    android:text="2. Start Benchmark Master" />
+    android:orientation="horizontal" 
+    android:weightSum="1.0">
+    
+    <Button
+        android:id="@+id/button_tcp_master"
+        android:layout_width="0dip"
+        android:layout_weight="0.5"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:text="TCP 1. Start Master" />
+
+    <Button
+        android:id="@+id/button_tcp_slave"
+        android:layout_width="0dip"
+        android:layout_weight="0.5"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:text="TCP 2. Start Slaves" />
+    
+</LinearLayout>
 
 <ListView android:id="@+id/logList"
     android:layout_width="fill_parent"
