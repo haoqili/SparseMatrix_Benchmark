@@ -314,11 +314,8 @@ public class ParaApp {
     		logm("Master using TCP to send byte[] of length = " + sendData.length);
     		logm("bytes: " + sendData);
     		int debugc = 0;
-    		//for (int j=0; j<sendData.length; j++) {
-    		for (int j=0; j<1600; j++) {
-
-    			if (j%10 == 0){
-    				//if (j%800 == 0){
+    		for (int j=0; j<sendData.length; j++) {
+    			if (j%800 == 0){
     				if (sendData[j] == 0) {
     					if (debugc > 5) break;
     					debugc++;

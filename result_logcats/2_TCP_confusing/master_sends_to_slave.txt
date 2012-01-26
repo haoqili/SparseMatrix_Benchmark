@@ -1,0 +1,19 @@
+I/... ParaApp(14664): Master using TCP to send byte[] of length = 48303
+I/... ParaApp(14664): bytes: [B@405781f8
+I/... ParaApp(14664): 0: 0xAC debugc: 0
+I/... ParaApp(14664): 800: 0xB8 debugc: 0
+I/... ParaApp(14664): 1600: 0x96 debugc: 0
+I/... ParaApp(14664): 2400: 0xC3 debugc: 0
+I/... ParaApp(14664): 3200: 0xC4 debugc: 0
+I/... ParaApp(14664): 4000: 0x94 debugc: 0
+I/... ParaApp(14664): 4800: 0x8A debugc: 0
+I/... ParaApp(14664): 5600: 0x04 debugc: 0
+I/... ParaApp(14664): 6400: 0xBF debugc: 0
+I/... ParaApp(14664): 7200: 0xC3 debugc: 0
+I/... ParaApp(14664): 8000: 0x53 debugc: 0
+I/... ParaApp(14664): 8800: 0x00 debugc: 1
+I/... ParaApp(14664): 9600: 0x00 debugc: 2
+I/... ParaApp(14664): 10400: 0x00 debugc: 3
+I/... ParaApp(14664): 11200: 0x00 debugc: 4
+I/... ParaApp(14664): 12000: 0x00 debugc: 5
+I/... ParaApp(14664): 12800: 0x00 debugc: 6
