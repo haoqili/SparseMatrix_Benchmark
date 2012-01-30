@@ -14,43 +14,42 @@ import java.net.InetAddress;
 import android.os.Handler;
 import android.util.Log;
 
-public class SlaveNetworkThread extends Thread {
-	private static final String TAG = "*** SlaveNetworkThread";
+public class UDPslaveThread extends Thread {
+	private static final String TAG = "*** UDPslaveThread";
 	
 	// UDP over IPv4 Networking
-	private static final int MAX_PACKET_SIZE = 110592; // bytes
-	private DatagramSocket slaveUDPSoc;
+	private DatagramSocket udpSlaveSock;
 	private boolean socketOK = true;
 	
-	Handler logHandler;
+	Handler mainHandler;
 	public void logm(String line) {
 		Log.i(TAG, line);
-		logHandler.obtainMessage(0, TAG+": "+line).sendToTarget();
+		mainHandler.obtainMessage(Globals.MSG_LOG, TAG+": "+line).sendToTarget();
 	}
 
 	/** NetworkThread constructor */
-	public SlaveNetworkThread(Handler ha) {
+	public UDPslaveThread(Handler ha) {
 		restartSocket();
-		logHandler = ha;
+		mainHandler = ha;
 		logm("in slave network thread");
 	}
 
 	/** Start of r */
 	public void restartSocket() {
-		if (slaveUDPSoc != null && !slaveUDPSoc.isClosed()) //doesn't get here
-			slaveUDPSoc.close();
+		if (udpSlaveSock != null && !udpSlaveSock.isClosed()) //doesn't get here
+			udpSlaveSock.close();
 
 		// Create UDP socket for receiving packets
 		try {
-			slaveUDPSoc = new DatagramSocket(Globals.UDP_SLAVE_PORT);
+			udpSlaveSock = new DatagramSocket(Globals.UDP_SLAVE_PORT);
 			/* Are these things necessary?
 			 * mySocket.setBroadcast(true);
 			logm(String.format(
 					"Initial socket buffer sizes: %d receive, %d send",
 					mySocket.getReceiveBufferSize(),
 					mySocket.getSendBufferSize()));
-			//mySocket.setReceiveBufferSize(MAX_PACKET_SIZE);
-			mySocket.setSendBufferSize(MAX_PACKET_SIZE);
+			//mySocket.setReceiveBufferSize(Globals.MAX_PACKET_SIZE);
+			mySocket.setSendBufferSize(Globals.MAX_PACKET_SIZE);
 			logm(String.format(
 					"Set socket buffer sizes to: %d receive, %d send",
 					mySocket.getReceiveBufferSize(),
@@ -72,14 +71,14 @@ public class SlaveNetworkThread extends Thread {
 	@Override
 	public void run() {
 		logm("In slave's run()");
-		byte[] receiveData = new byte[MAX_PACKET_SIZE];
+		byte[] receiveData = new byte[Globals.MAX_PACKET_SIZE];
 
 		while (socketOK) {
 			DatagramPacket dPacket = new DatagramPacket(receiveData,
 					receiveData.length);
 			logm("Slave waiting to receive packet from master ...");
 			try {
-				slaveUDPSoc.receive(dPacket);
+				udpSlaveSock.receive(dPacket); // blocks
 			} catch (IOException e) {
 				logm("mySocket.receive broke :(");
 				Log.e(TAG, "Exception on mySocket.receive: " + e.getMessage());
@@ -102,14 +101,14 @@ public class SlaveNetworkThread extends Thread {
 			try {
 				sr = srFromBytes(receiveData);
 				logm("receive Data: ");
-				debugc(receiveData); //TODO: delete
-				sr.setHandler(logHandler); // MUST be called before next line
+				//debugc(receiveData);
+				sr.setHandler(mainHandler); // MUST be called before next line
 				sr.run(); 
 				
 				// reply to Master
 				byte[] reply_data = srToBytes(sr);
 				logm("reply data: ");
-				debugc(reply_data); // TODO: delete
+				//debugc(reply_data);
 				sendData(reply_data);
 				long stopTime = System.currentTimeMillis();
 				logm(String.format(":D:D Work finished in %d ms!", stopTime
@@ -122,7 +121,7 @@ public class SlaveNetworkThread extends Thread {
 			
 		} // end while(socketOK)
 		logm("closing socket ..");
-		slaveUDPSoc.close();
+		udpSlaveSock.close();
 	} // end run()
 
 	private void debugc(byte[] bytes){
@@ -142,7 +141,7 @@ public class SlaveNetworkThread extends Thread {
 	/** Send an UDP packet to the broadcast address */
 	private void sendData(byte[] sendData) throws IOException {
 		logm("send reply back to master Start");
-		slaveUDPSoc.send(new DatagramPacket(sendData, sendData.length,
+		udpSlaveSock.send(new DatagramPacket(sendData, sendData.length,
 				getMasterAddress(), Globals.UDP_MASTER_PORT));
 		logm("send reply back to master Finished");
 	}

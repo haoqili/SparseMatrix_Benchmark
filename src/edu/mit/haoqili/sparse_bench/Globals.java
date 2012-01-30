@@ -19,6 +19,12 @@ public class Globals {
 	final static public int SPARSE_NUM_ITER=1000;
 	// old
 	//final static public int SPARSE_NUM_ITER=100000;
+	
+	final static public int MAX_PACKET_SIZE = 110592; //bytes
+
+	// handler stuff
+	final static public int MSG_TCP_REPLY = 2;
+	final static public int MSG_LOG = 3;
 
 	// ports
 	final static public int TCP_MASTER_PORT = 6999;

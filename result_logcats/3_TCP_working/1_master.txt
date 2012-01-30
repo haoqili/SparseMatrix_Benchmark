@@ -1,0 +1,88 @@
+I/##### Main Activity( 5787): ########################
+I/##### Main Activity( 5787): ########################
+I/##### Main Activity( 5787): clicked TCP master benchmark button
+I/TCP_MY_PORT: ( 5787): 192.168.5.20 --> 1
+I/TCP_MY_PORT: ( 5787): 192.168.5.1 --> 0
+I/... ParaApp( 5787): In Constructor
+I/... ParaApp( 5787): startBenchmark() ...... with isUDP + false
+I/... ParaApp( 5787): JGFrun() start ......;
+D/dalvikvm( 5787): GC_EXPLICIT freed 98K, 52% free 2631K/5379K, external 2002K/2137K, paused 18ms
+I/... ParaApp( 5787): JGFkernel Starting benchmark, nthreads = 2
+I/... ParaApp( 5787): #################################
+I/... ParaApp( 5787): making piece of nthread = 1
+I/... SparseRunner ( 5787): initializing ...
+I/... SparseRunner ( 5787): created.
+I/... ParaApp( 5787): Serializing SparseRunner into Serializable for region 1,0...
+I/... ParaApp( 5787): JGFkernel Sending Serializable with payload bytes: 48303
+I/... ParaApp( 5787): calls sendToSlave() for nthread = 1 of length = 48303
+I/... ParaApp( 5787): in sendToSlave, isUDP = false
+I/... ParaApp( 5787): Master using TCP to send byte[] of length = 48303
+I/... ParaApp( 5787): in master port: 7001, in a new thread
+I/... ParaApp( 5787): #################################
+I/... ParaApp( 5787): making piece of nthread = 0
+I/... SparseRunner ( 5787): initializing ...
+I/... SparseRunner ( 5787): created.
+I/... ParaApp( 5787): Serializing SparseRunner into Serializable for region 0,0...
+I/*** TCPmasterTranceiveThread( 5787): 1. Waiting for slave to accept master's connection ...
+I/... ParaApp( 5787): JGFkernel Sending Serializable with payload bytes: 48303
+I/... ParaApp( 5787): calls sendToSlave() for nthread = 0 of length = 48303
+I/... ParaApp( 5787): in sendToSlave, isUDP = false
+I/... ParaApp( 5787): Master using TCP to send byte[] of length = 48303
+I/... ParaApp( 5787): in master port: 7000, in a new thread
+I/... ParaApp( 5787): JGFrun() finished ^^^^^^^^^^^^^
+I/*** TCPmasterTranceiveThread( 5787): 1. Waiting for slave to accept master's connection ...
+I/*** TCPslaveThread( 5787): inside TCPslaveThread run
+I/*** TCPslaveThread( 5787): -- TCPslaveThread -- about to connect to master
+I/*** TCPslaveThread( 5787): MyIP = 192.168.5.20 myPort = 7001
+I/*** TCPmasterTranceiveThread( 5787): 2. a Slave's Connection accepted :)
+I/*** TCPmasterTranceiveThread( 5787): 3. send data
+I/*** TCPmasterTranceiveThread( 5787): 4. flush os
+I/*** TCPmasterTranceiveThread( 5787): 5. shutdownOutput
+I/*** TCPmasterTranceiveThread( 5787): 6. getting reply
+I/*** TCPmasterTranceiveThread( 5787): master is getting reply...... 
+I/*** TCPmasterTranceiveThread( 5787): master got input stream
+I/*** TCPslaveThread( 5787): slave connecting to master, to get work ....
+I/*** TCPslaveThread( 5787): slave connected to master, getting stream
+I/*** TCPslaveThread( 5787): !!!! Received TCP payload from master of 48303 bytes
+I/*** TCPslaveThread( 5787): multiply worker / my portion of the matrix: 
+I/*** TCPslaveThread( 5787): Bytes --> S.R.
+I/*** TCPslaveThread( 5787): srFromBytes: start ....
+D/dalvikvm( 5787): GC_CONCURRENT freed 265K, 49% free 3026K/5895K, external 2002K/2137K, paused 2ms+3ms
+I/*** TCPslaveThread( 5787): srFromBytes: ... got s.r.!
+I/*** TCPslaveThread( 5787): run my work/my portion of matrix!
+I/... SparseRunner ( 5787): running...
+I/*** TCPmasterTranceiveThread( 5787): 2. a Slave's Connection accepted :)
+I/*** TCPmasterTranceiveThread( 5787): 3. send data
+I/*** TCPmasterTranceiveThread( 5787): 4. flush os
+I/*** TCPmasterTranceiveThread( 5787): 5. shutdownOutput
+I/*** TCPmasterTranceiveThread( 5787): 6. getting reply
+I/*** TCPmasterTranceiveThread( 5787): master is getting reply...... 
+I/*** TCPmasterTranceiveThread( 5787): master got input stream
+I/... SparseRunner ( 5787): finished.
+I/*** TCPslaveThread( 5787): reply to master: 
+I/*** TCPslaveThread( 5787): slave sends reply back to master Start ...
+I/*** TCPslaveThread( 5787): . send data
+I/*** TCPslaveThread( 5787): . flush os
+I/*** TCPslaveThread( 5787): . slave closes socket
+I/*** TCPmasterTranceiveThread( 5787): !!!! Received TCP payload from slave of 48303 bytes
+I/*** TCPslaveThread( 5787): ... slave reply back to master Finished
+I/*** TCPslaveThread( 5787): :D:D Work finished in 365 ms!
+I/*** TCPslaveThread( 5787): end of slaveTCPThread!
+I/*** TCPmasterTranceiveThread( 5787):  >> master got bytes converted into S.R. id = 1
+I/*** TCPmasterTranceiveThread( 5787): send S.R. through handler
+I/##### Main Activity( 5787):  << in main activity, sr's id: 1
+I/... ParaApp( 5787): starting to handle completed sparserunner
+I/... ParaApp( 5787): updated barrier_count = 1 nthreads = 2
+I/*** TCPmasterTranceiveThread( 5787): !!!! Received TCP payload from slave of 48303 bytes
+I/*** TCPmasterTranceiveThread( 5787):  >> master got bytes converted into S.R. id = 0
+I/*** TCPmasterTranceiveThread( 5787): send S.R. through handler
+I/##### Main Activity( 5787):  << in main activity, sr's id: 0
+I/... ParaApp( 5787): starting to handle completed sparserunner
+I/... ParaApp( 5787): updated barrier_count = 2 nthreads = 2
+I/... ParaApp( 5787): Yay barrier count is equal to nthreads!
+I/... ParaApp( 5787): :D:D:D:D:D:D:D:D:D:D:D:D:D:D:D:D:D:D:D
+I/... ParaApp( 5787): :D:D:D:D !!!! DONE !!!!!!!! :D:D:D:D:D:D:D
+I/... ParaApp( 5787): :D:D:D:D:D:D:D:D:D:D:D:D:D:D:D:D:D:D:D
+I/... ParaApp( 5787): JGFrun finished in 720ms
+I/... ParaApp( 5787): All slaves finished in 683ms
+I/... ParaApp( 5787): ******** end of benchmark *********

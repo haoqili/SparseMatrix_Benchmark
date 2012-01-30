@@ -9,101 +9,69 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.OptionalDataException;
 import java.io.OutputStream;
-import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Enumeration;
 
 import android.os.Handler;
 import android.util.Log;
 
-public class SlaveTCPThread extends Thread {
-	private static final String TAG = "*** SlaveTCPThread";
+public class TCPslaveThread extends Thread {
+	private static final String TAG = "*** TCPslaveThread";
 	
+	private Socket tcpSlaveSock;
 	
-	// UDP over IPv4 Networking
-	private static final int MAX_PACKET_SIZE = 110592; // bytes
-	private Socket slaveTCPSoc;
-	private boolean socketOK = true;
-	
-	Handler logHandler;
+	Handler mainHandler;
 	public void logm(String line) {
 		Log.i(TAG, line);
-		logHandler.obtainMessage(0, TAG+": "+line).sendToTarget();
+		mainHandler.obtainMessage(Globals.MSG_LOG, TAG+": "+line).sendToTarget();
 	}
 
 	/** NetworkThread constructor */
-	public SlaveTCPThread(Handler ha) {
+	public TCPslaveThread(Handler ha) {
 		closeOldSocket();
-		logHandler = ha;
+		mainHandler = ha;
 	}
-
+	
+	// like the first portion UDPslaveThread's restartSocket()
 	public void closeOldSocket() {
-		if (slaveTCPSoc != null && !slaveTCPSoc.isClosed()) {
+		if (tcpSlaveSock != null && !tcpSlaveSock.isClosed()) {
 			try {
-				slaveTCPSoc.close();
+				tcpSlaveSock.close();
 			} catch (IOException e) {
-				logm("wanted to close slaveTCPSoc, but failed e: " + e);
+				logm("wanted to close tcpSlaveSock, but failed e: " + e);
 				e.printStackTrace();
 			}
 		}
 	}
 
-	/** If not socketOK, then receive loop thread will stop */
-	boolean socketIsOK() {
-		return socketOK;
-	}
-
-	/** Thread's process TCP packets */
+	/** process TCP packets */
 	@Override
 	public void run() {
-		// Create UDP socket for receiving packets
-		logm("inside slaveTCPThread run");
+		logm("inside TCPslaveThread run");
 		try {
-			logm("-- SlaveTCPThread -- about to connect to master");
-			slaveTCPSoc = new Socket(getMasterAddress(), getMyPort());
+			logm("-- TCPslaveThread -- about to connect to master");
+			tcpSlaveSock = new Socket(getMasterAddress(), getMyPort());
 			logm("slave connecting to master, to get work ....");
 			
-			byte[] receiveData = new byte[MAX_PACKET_SIZE];
-			// I have tried DataOutput/InputStream, but they didn't work so I gave up
-			// see: http://stackoverflow.com/questions/8760109/tcp-how-to-send-receive-real-time-large-packets-in-java
-			InputStream is = slaveTCPSoc.getInputStream();
-			//int bytesRead = is.read(receiveData,0,MAX_PACKET_SIZE); //receiveData.length = MAX_PACKET_SIZE
+			byte[] receiveData = new byte[Globals.MAX_PACKET_SIZE];
+			InputStream is = tcpSlaveSock.getInputStream();
 			
-			// fix!
 			int bytesRead = 0;
-			logm("here, getting stream");
-			// If put < MAX_PACKET_SIZE, hangs, see
-			//   http://stackoverflow.com/questions/4886293/socket-input-stream-hangs-on-final-read-best-way-to-handle-this
-			
-			// TODO: not hard-coded this number
-			// 48303 comes from the consistent UDP packet size for this app
-			// TCP had 48295 instead
-			while(bytesRead < Globals.SlaveTCPSize){
-				logm("while " + bytesRead + " != " + MAX_PACKET_SIZE + ", " + is.available());
-				//bytesRead += is.read(receiveData,0,MAX_PACKET_SIZE);
-				int delta = is.read(receiveData,0,MAX_PACKET_SIZE);
+			int delta = 0;
+			logm("slave connected to master, getting stream");
+			while(delta != -1){
+				// second read param is offset within receiveData
+				delta = is.read(receiveData, bytesRead, Globals.MAX_PACKET_SIZE - bytesRead);
+				if (delta == -1) {
+					break;
+				}
 				bytesRead += delta;
-				//logm("delta = " + delta + ", receiveData]bytesRead] = " + String.format("0x%02X", receiveData[bytesRead-400]));
-				int debugc = 0;
-				for (int j=bytesRead-delta; j<bytesRead; j++) {
-
-	    			if (j%800 == 0){
-	    				if (receiveData[j] == 0) {
-	    					if (debugc > 5) break;
-	    					debugc++;
-	    				} else {
-	    					debugc = 0;
-	    				}
-	    				logm(j + ": " + String.format("0x%02X", receiveData[j]) + " debugc: " + debugc);
-	    			}
-	    		}
 			}
 			
-			logm("!!!! Received TCP payload read " + bytesRead + " bytes");
-			logm("bytes: " + receiveData);
+			logm("!!!! Received TCP payload from master of " + bytesRead + " bytes");
+			/*logm("bytes: " + receiveData);
 			int debugc = 0;
     		for (int j=0; j<Globals.SlaveTCPSize; j++) {
     			if (j%800 == 0){
@@ -115,27 +83,26 @@ public class SlaveTCPThread extends Thread {
     				}
     				logm(j + ": " + String.format("0x%02X", receiveData[j]) + " debugc: " + debugc);
     			}
-    		}
+    		}*/
     		
 			// After this slave got its work (Sparse Runner)
 			// calculate it and reply to the master its solution
 			
 			//analogous to diplomamatrix UserApp.java's 
 			//    handleDSMRequest(): case WORK_AND_BARRIER
-			logm("multiply worker / my portion of the matrix");
+			logm("multiply worker / my portion of the matrix: ");
 			// Deserialize SparseRunner
 			long startTime = System.currentTimeMillis();
 			SparseRunner sr = null;
 			try {
-				logm("tmp 1");
+				logm("Bytes --> S.R.");
 				sr = srFromBytes(receiveData);
-				logm("tmp 2");
-				sr.setHandler(logHandler); // MUST be called before next line
-				logm("tmp 3");
+				sr.setHandler(mainHandler); // MUST be called before next line
+				logm("run my work/my portion of matrix!");
 				sr.run(); 
 				
 				// reply to Master
-				logm("tmp 4");
+				logm("reply to master: ");
 				byte[] reply_data = srToBytes(sr);
 				sendData(reply_data);
 				long stopTime = System.currentTimeMillis();
@@ -146,39 +113,33 @@ public class SlaveTCPThread extends Thread {
 				e.printStackTrace();
 			}
 
-			logm("closing TCP socket ..");
-			slaveTCPSoc.close();
+			logm("end of slaveTCPThread!");
 		} catch (Exception e) {
 			Log.e(TAG, "Something broke in slave TCP :/ e: " + e.getMessage());
-			socketOK = false;
-			logm("WAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-			logm("WAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-			//System.exit(5);
+			e.printStackTrace();
+			System.exit(5);
 		}
 	} // end run()
 
 	/** Send an TCP packet to the broadcast address */
 	private void sendData(byte[] sendData) throws IOException {
-		// TODO: Try!!
-		// create a new socket connection ... 
-		// like in case when master closed connection after send out work
-		/*masterSendTCPSocs[thd_i] = new ServerSocket(Globals.TCP_SLAVE_PORTS + thd_i);
-		Thread send_thread = new TCPSendThread(masterSendTCPSocs[thd_i], sendData, logHandler);
-		send_thread.start();
-		*/
 		// if master's connection remains open ...
-		logm("send reply back to master Start");
+		logm("slave sends reply back to master Start ...");
 
-		OutputStream os = slaveTCPSoc.getOutputStream();
+		OutputStream os = tcpSlaveSock.getOutputStream();
+		
+		logm(". send data");
 		os.write(sendData);
+		
 		logm(". flush os");
 		os.flush();
-		logm(". close socket");
-		slaveTCPSoc.close();
 		
-		//slaveTCPSoc.send(new DatagramPacket(sendData, sendData.length,
-		//		getMasterAddress(), Globals.UDP_MASTER_PORT));
-		logm("send reply back to master Finished");
+		// we don't do shutdownOutput here because
+		// there is no further communication between slave and master
+		logm(". slave closes socket");
+		tcpSlaveSock.close(); 
+		
+		logm("... slave reply back to master Finished");
 	}
 
 	/** Get slave's own IP Address */
@@ -202,6 +163,7 @@ public class SlaveTCPThread extends Thread {
 			System.exit(5);
 		} catch (Exception e) {
 			Log.e(TAG, "can't determine local IP address: " + e.toString());
+			e.printStackTrace();
 			System.exit(5);
 		}	
 		return "";
@@ -214,7 +176,7 @@ public class SlaveTCPThread extends Thread {
 	
     /**
      * Serialize a sparse runner into a byte array
-     * to be sent in a Datagram UDP packet
+     * to be sent in a TCP packet
      * 
      * @throws IOException
      */
@@ -236,14 +198,11 @@ public class SlaveTCPThread extends Thread {
 	 */
 	public SparseRunner srFromBytes(byte[] d) throws OptionalDataException,
 			ClassNotFoundException, IOException {
-		logm("here 1");
+		logm("srFromBytes: start ....");
 		ByteArrayInputStream bis = new ByteArrayInputStream(d);
-		//InputStream is = slaveTCPSoc.getInputStream();
-		logm("here 2");
 		ObjectInputStream ois = new ObjectInputStream(bis);
-		logm("here 3");
 		SparseRunner a = (SparseRunner) ois.readObject();
-		logm("here 4");
+		logm("srFromBytes: ... got s.r.!");
 		ois.close();
 		return a;
 	}

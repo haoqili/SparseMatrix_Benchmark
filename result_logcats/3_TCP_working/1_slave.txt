@@ -1,0 +1,24 @@
+I/##### Main Activity( 5951): ########################
+I/##### Main Activity( 5951): ########################
+I/##### Main Activity( 5951): clicked TCP slave benchmark button
+I/*** TCPslaveThread( 5951): inside TCPslaveThread run
+I/*** TCPslaveThread( 5951): -- TCPslaveThread -- about to connect to master
+I/*** TCPslaveThread( 5951): MyIP = 192.168.5.1 myPort = 7000
+I/*** TCPslaveThread( 5951): slave connecting to master, to get work ....
+I/*** TCPslaveThread( 5951): slave connected to master, getting stream
+I/*** TCPslaveThread( 5951): !!!! Received TCP payload from master of 48303 bytes
+I/*** TCPslaveThread( 5951): multiply worker / my portion of the matrix: 
+I/*** TCPslaveThread( 5951): Bytes --> S.R.
+I/*** TCPslaveThread( 5951): srFromBytes: start ....
+I/*** TCPslaveThread( 5951): srFromBytes: ... got s.r.!
+I/*** TCPslaveThread( 5951): run my work/my portion of matrix!
+I/... SparseRunner ( 5951): running...
+I/... SparseRunner ( 5951): finished.
+I/*** TCPslaveThread( 5951): reply to master: 
+I/*** TCPslaveThread( 5951): slave sends reply back to master Start ...
+I/*** TCPslaveThread( 5951): . send data
+I/*** TCPslaveThread( 5951): . flush os
+I/*** TCPslaveThread( 5951): . slave closes socket
+I/*** TCPslaveThread( 5951): ... slave reply back to master Finished
+I/*** TCPslaveThread( 5951): :D:D Work finished in 320 ms!
+I/*** TCPslaveThread( 5951): end of slaveTCPThread!

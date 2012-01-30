@@ -11,7 +11,6 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.Random;
 
 import android.os.Handler;
@@ -22,11 +21,12 @@ public class ParaApp {
 			
 	/* Network stuff */
 	private boolean isUDP;
+	
 	// UDP
-	private DatagramSocket masterSendUDPSoc;
+	private DatagramSocket udpMasterSendSock;
 	
 	// TCP - one connection for each slave phone
-	private static ServerSocket[] masterSendTCPSocs = new ServerSocket[Globals.NTHREADS];
+	private static ServerSocket[] tcpMasterSendSocks = new ServerSocket[Globals.NTHREADS];
 	
 	/* Largely copied from DIPLOMAMatrix's UserApp */
 	long kernelStartTime, kernelStopTime;
@@ -80,16 +80,16 @@ public class ParaApp {
     int[] lowsum;
     int[] highsum; 
     
-	Handler logHandler;
+	Handler mainHandler;
     private void logm(String line){
         Log.i(TAG, line);
-		logHandler.obtainMessage(0, TAG+": "+line).sendToTarget();
+		mainHandler.obtainMessage(Globals.MSG_LOG, TAG+": "+line).sendToTarget();
     }
 
     /* PARAllel APP constructor */
     //public ParaApp(int nthreads){
     public ParaApp(Handler ha){
-		logHandler = ha;
+		mainHandler = ha;
 
     	logm("In Constructor");
     }
@@ -144,13 +144,6 @@ public class ParaApp {
             col[i] = Math.abs(R.nextInt()) % datasizes_N[size];
 
             val[i] = R.nextDouble();
-            /* generate random row index (0, M-1) // TODO: Delete debugging
-            row[i] = 1;
-
-            // generate random column index (0, N-1)
-            col[i] = 1;
-
-            val[i] = 0.5;*/
 
         }
 
@@ -224,10 +217,10 @@ public class ParaApp {
 
         // Send pieces of work to each slave as a Serializable SparseRunner
         for (int i = nthreads - 1; i >= 0; i--) {
-        	logm("..");
+        	logm("#################################");
         	logm("making piece of nthread = " + i);
             SparseRunner sr = new SparseRunner(global_yt, i, val, row, col, x,
-                    Globals.SPARSE_NUM_ITER, nz, lowsum, highsum, logHandler);
+                    Globals.SPARSE_NUM_ITER, nz, lowsum, highsum, mainHandler);
             byte[] b = null;
             try {
                 logm(String.format(
@@ -264,10 +257,6 @@ public class ParaApp {
 		for (int i = 0; i < N; i++)
 			A[i] = R.nextDouble() * 1e-6;
 
-		/* TODO: DEBUGGING! CHANGE BACK!!!!!
-		for (int i = 0; i < N; i++)
-			A[i] = 0.5 * 1e-6;*/
-
 		return A;
 	}
 
@@ -291,10 +280,9 @@ public class ParaApp {
     	logm("in sendToSlave, isUDP = " + isUDP);
     	if (isUDP){ // UDP
     		logm("Master using UDP to send");
-    		masterSendUDPSoc = new DatagramSocket();
+    		udpMasterSendSock = new DatagramSocket();
     		logm("Master using TCP to send byte[] of length = " + sendData.length);
-    		logm("bytes: " + sendData);
-    		int debugc = 0;
+    		/*int debugc = 0;
     		for (int j=0; j<sendData.length; j++) {
     			if (j%800 == 0){
     				if (sendData[j] == 0) {
@@ -305,15 +293,14 @@ public class ParaApp {
     				}
     				logm(j + ": " + String.format("0x%02X", sendData[j]) + " debugc: " + debugc);
     			}
-    		}
-    		masterSendUDPSoc.send(new DatagramPacket(sendData, sendData.length,
+    		}*/
+    		udpMasterSendSock.send(new DatagramPacket(sendData, sendData.length,
     				getSlaveAddress(thd_i),
     				Globals.UDP_SLAVE_PORT));
-    		masterSendUDPSoc.close();
+    		udpMasterSendSock.close();
     	} else { // TCP
     		logm("Master using TCP to send byte[] of length = " + sendData.length);
-    		logm("bytes: " + sendData);
-    		int debugc = 0;
+    		/*int debugc = 0;
     		for (int j=0; j<sendData.length; j++) {
     			if (j%800 == 0){
     				if (sendData[j] == 0) {
@@ -324,9 +311,10 @@ public class ParaApp {
     				}
     				logm(j + ": " + String.format("0x%02X", sendData[j]) + " debugc: " + debugc);
     			}
-    		}
-    		masterSendTCPSocs[thd_i] = new ServerSocket(Globals.TCP_SLAVE_PORTS + thd_i);
-    		Thread send_thread = new TCPSendThread(masterSendTCPSocs[thd_i], sendData, logHandler);
+    		}*/
+    		logm("in master port: " + (Globals.TCP_SLAVE_PORTS + thd_i) +", in a new thread");
+    		tcpMasterSendSocks[thd_i] = new ServerSocket(Globals.TCP_SLAVE_PORTS + thd_i);
+    		Thread send_thread = new TCPmasterTranceiveThread(tcpMasterSendSocks[thd_i], sendData, mainHandler);
     		send_thread.start();
     	}
 	}
@@ -362,6 +350,7 @@ public class ParaApp {
 		barrier_count++;
 		logm("updated barrier_count = " + barrier_count + " nthreads = " + nthreads);
 		if (barrier_count == nthreads) {
+			// end of Benchmark
 			logm("Yay barrier count is equal to nthreads!");
 			barrier_count = 0;
 			int nz = val.length;
@@ -383,6 +372,8 @@ public class ParaApp {
 
 			logm(String.format("All slaves finished in %dms", kernelStopTime
 							- kernelStartTime));
+			
+			logm("******** end of benchmark *********");
 			return true;
 		}
 		return false;

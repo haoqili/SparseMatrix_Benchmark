@@ -9,7 +9,6 @@ import android.os.Handler;
 import android.util.Log;
 
 class SparseRunner implements Serializable, Runnable {
-//class SparseRunner implements Runnable {
 	
 	private static final String TAG = "... SparseRunner ";
 
@@ -23,15 +22,15 @@ class SparseRunner implements Serializable, Runnable {
 	int highsum[];
 	
 	// log
-	transient Handler logHandler = null; // transient so it doesn't get serialized
+	transient Handler mainHandler = null; // transient so it doesn't get serialized
 	public void logm(String line) {
 		Log.i(TAG, line);
-		logHandler.obtainMessage(0, TAG+": "+line).sendToTarget();
+		mainHandler.obtainMessage(Globals.MSG_LOG, TAG+": "+line).sendToTarget();
 	}
 
 	public SparseRunner(double yt[], int id, double val[], int row[], int col[], double x[],
 			int NUM_ITERATIONS, int nz, int lowsum[], int highsum[], Handler ha) {
-		logHandler = ha;
+		mainHandler = ha;
 
 		logm("initializing ...");
 		
@@ -67,7 +66,7 @@ class SparseRunner implements Serializable, Runnable {
 		logm("finished.");
 	}
 	public void setHandler(Handler ha){
-		logHandler = ha;
+		mainHandler = ha;
 	}
 	private void writeObject(ObjectOutputStream out) throws IOException {
 		out.defaultWriteObject();

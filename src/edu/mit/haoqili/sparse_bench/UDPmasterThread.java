@@ -6,36 +6,34 @@ import java.io.ObjectInputStream;
 import java.io.OptionalDataException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.Socket;
 
 import android.os.Handler;
 import android.util.Log;
 
-public class MasterNetworkThread extends Thread {
-	private static final String TAG = "*** MasterNetworkThread";
+/** calls ParaApp to send UDP work packets to slaves
+ *  and in here receives their finished UDP reply packets
+ */
+public class UDPmasterThread extends Thread {
+	private static final String TAG = "*** UDPmasterThread";
 
-	private ParaApp myParaApp = null;
+	private ParaApp udpParaApp = null;
 	
 	private boolean isEnd = false;
 	
 	// UDP over IPv4 Networking
-	private DatagramSocket masterRecvUDPSoc;
+	private DatagramSocket udpMasterReceiveSock;
 	
-	// TCP - one connection for each slave phone
-	private Socket[] masterRecvTCPSocs = new Socket[Globals.NTHREADS];
-	
-	private static final int MAX_PACKET_SIZE = 110592; // bytes
 	private boolean socketOK = true;
 	
-	Handler logHandler;
+	Handler mainHandler;
 	public void logm(String line) {
 		Log.i(TAG, line);
-		logHandler.obtainMessage(0, TAG+": "+line).sendToTarget();
+		mainHandler.obtainMessage(Globals.MSG_LOG, TAG+": "+line).sendToTarget();
 	}
 
 	/** NetworkThread constructor */
-	public MasterNetworkThread(Handler ha) {
-		logHandler = ha;
+	public UDPmasterThread(Handler ha) {
+		mainHandler = ha;
 		
 		// step 2. starts its thread to receive UDP packet results from slaves
 		restartSocket();
@@ -43,27 +41,27 @@ public class MasterNetworkThread extends Thread {
 	
 	/** Send work to the slaves **/
 	public void distributeWork(){
-		myParaApp = new ParaApp(logHandler);
-		myParaApp.startBenchmark(true);		
+		udpParaApp = new ParaApp(mainHandler);
+		udpParaApp.startBenchmark(true);		
 	}
 	
 
 	/** Start of r */
 	public void restartSocket() {
-		if (masterRecvUDPSoc != null && !masterRecvUDPSoc.isClosed()) // doesn't gets here
-			masterRecvUDPSoc.close();
+		if (udpMasterReceiveSock != null && !udpMasterReceiveSock.isClosed()) // doesn't gets here
+			udpMasterReceiveSock.close();
 
 		// Create UDP socket for receiving packets
 		try {
-			masterRecvUDPSoc = new DatagramSocket(Globals.UDP_MASTER_PORT);
+			udpMasterReceiveSock = new DatagramSocket(Globals.UDP_MASTER_PORT);
 			/* Are these things necessary?
 			 * mySocket.setBroadcast(true);
 		logm(String.format(
 				"Initial socket buffer sizes: %d receive, %d send",
 				mySocket.getReceiveBufferSize(),
 				mySocket.getSendBufferSize()));
-		//mySocket.setReceiveBufferSize(MAX_PACKET_SIZE);
-		mySocket.setSendBufferSize(MAX_PACKET_SIZE);
+		//mySocket.setReceiveBufferSize(Globals.MAX_PACKET_SIZE);
+		mySocket.setSendBufferSize(Globals.MAX_PACKET_SIZE);
 		logm(String.format(
 				"Set socket buffer sizes to: %d receive, %d send",
 				mySocket.getReceiveBufferSize(),
@@ -84,13 +82,13 @@ public class MasterNetworkThread extends Thread {
 	/** Thread's receive loop for UDP packets */
 	@Override
 	public void run() {
-		byte[] receiveData = new byte[MAX_PACKET_SIZE];
+		byte[] receiveData = new byte[Globals.MAX_PACKET_SIZE];
 
 		while (socketOK) {
 			DatagramPacket dPacket = new DatagramPacket(receiveData,
 					receiveData.length);
 			try {
-				masterRecvUDPSoc.receive(dPacket);
+				udpMasterReceiveSock.receive(dPacket); // blocks
 			} catch (IOException e) {
 				logm("mySocket.receive broke :(");
 				Log.e(TAG, "Exception on mySocket.receive: " + e.getMessage());
@@ -99,31 +97,18 @@ public class MasterNetworkThread extends Thread {
 			}
 			
 			logm("master received a reply of length: " + dPacket.getLength());
-			int debugc = 0; // TODO: DEBUG
-			for (int j=0; j<receiveData.length; j++) {
-				if (j%800 == 0){
-					if (receiveData[j] == 0) {
-						if (debugc > 5) break;
-						debugc++;
-					} else {
-						debugc = 0;
-					}
-					logm(j + ": " + String.format("0x%02X", receiveData[j]) + " debugc: " + debugc);
-				}
-			} //end debug
 			// handle the reply, put them together
-			//analogous to diplomamatrix UserApp.java's
+			// analogous to diplomamatrix UserApp.java's
 			//    handleDSMReply() 
-			long startTime = System.currentTimeMillis();
 			SparseRunner sr = null;
 			try {
 				sr = srFromBytes(receiveData);
 				// handle completed SparseRunner
-				if (myParaApp == null) {
-					logm("Whoa MasterNetworkThread received data even before ParaApp sent out data");
-					throw new NullPointerException("no myParaApp");
+				if (udpParaApp == null) {
+					logm("Whoa UDPmasterThread received data even before ParaApp sent out data");
+					throw new NullPointerException("no udpParaApp");
 				}
-				isEnd = myParaApp.handleCompletedSparseRunner(sr);
+				isEnd = udpParaApp.handleCompletedSparseRunner(sr);
 				if (isEnd){
 					break;
 				}
@@ -134,7 +119,7 @@ public class MasterNetworkThread extends Thread {
 			
 		} // end while(socketOK)
 		logm("isEnd is here!!!!!! closing socket ...");
-		masterRecvUDPSoc.close();
+		udpMasterReceiveSock.close();
 	} // end run()
 	
 	/**
