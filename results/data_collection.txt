@@ -1,0 +1,3 @@
+8 phones: see logcats/4_TCP_8phone_master.txt
+JGFrun finished in 10265ms
+All slaves finished in 10223ms

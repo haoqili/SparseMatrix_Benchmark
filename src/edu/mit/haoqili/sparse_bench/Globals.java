@@ -9,7 +9,15 @@ public class Globals {
 
 	//TODO: change
 	final static public String MASTER_IP_ADDRESS="192.168.5.20";
-	static public String[] SLAVE_ADDRS = {"192.168.5.1", MASTER_IP_ADDRESS};
+	static public String[] SLAVE_ADDRS = { 
+										  "192.168.5.107", 
+										  "192.168.5.106", 
+										  "192.168.5.105",
+										  "192.168.5.104",
+										  "192.168.5.103",
+										  "192.168.5.102",
+										  "192.168.5.101",
+										  MASTER_IP_ADDRESS};
 	// DEBUGGING:
 	//static public String[] SLAVE_ADDRS = {"192.168.5.1"};
 	
@@ -27,8 +35,8 @@ public class Globals {
 	final static public int MSG_LOG = 3;
 
 	// ports
-	final static public int TCP_MASTER_PORT = 6999;
-	final static public int TCP_SLAVE_PORTS = 7000;
+	final static public int TCP_MASTER_PORT = 6998;
+	final static public int TCP_SLAVE_PORTS = 7001;
 	// HashMap for slaves to find their port number
 	final static public HashMap<String, Integer> TCP_MY_PORT = mapTCPSlaves();
 	// since Master has both its slave and master thread, use diff ports

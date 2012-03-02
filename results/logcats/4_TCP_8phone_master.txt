@@ -1,0 +1,244 @@
+haoqili@HaoQis-MacBook-Pro:05:20:53:)~$ adb -s 3735300E119600EC logcat--------- beginning of /dev/log/main
+I/##### Main Activity(  957): ########################
+I/##### Main Activity(  957): ########################
+I/##### Main Activity(  957): clicked TCP master benchmark button
+I/TCP_MY_PORT: (  957): 192.168.5.20 --> 7
+I/TCP_MY_PORT: (  957): 192.168.5.103 --> 4
+I/TCP_MY_PORT: (  957): 192.168.5.104 --> 3
+I/TCP_MY_PORT: (  957): 192.168.5.105 --> 2
+I/TCP_MY_PORT: (  957): 192.168.5.106 --> 1
+I/TCP_MY_PORT: (  957): 192.168.5.101 --> 6
+I/TCP_MY_PORT: (  957): 192.168.5.102 --> 5
+I/TCP_MY_PORT: (  957): 192.168.5.107 --> 0
+I/... ParaApp(  957): In Constructor
+I/... ParaApp(  957): startBenchmark() ...... with isUDP + false
+I/... ParaApp(  957): JGFrun() start ......;
+D/dalvikvm(  957): GC_EXPLICIT freed 95K, 52% free 2632K/5379K, external 2002K/2137K, paused 22ms
+I/... ParaApp(  957): JGFkernel Starting benchmark, nthreads = 8
+I/... ParaApp(  957): #################################
+I/... ParaApp(  957): making piece of nthread = 7
+I/... SparseRunner (  957): initializing ...
+I/... SparseRunner (  957): created.
+I/... ParaApp(  957): Serializing SparseRunner into Serializable for region 7,0...
+I/... ParaApp(  957): JGFkernel Sending Serializable with payload bytes: 48351
+I/... ParaApp(  957): calls sendToSlave() for nthread = 7 of length = 48351
+I/... ParaApp(  957): in sendToSlave, isUDP = false
+I/... ParaApp(  957): Master using TCP to send byte[] of length = 48351
+I/... ParaApp(  957): in master port: 7008, in a new thread
+I/... ParaApp(  957): #################################
+I/... ParaApp(  957): making piece of nthread = 6
+I/... SparseRunner (  957): initializing ...
+I/... SparseRunner (  957): created.
+I/... ParaApp(  957): Serializing SparseRunner into Serializable for region 6,0...
+I/*** TCPmasterTranceiveThread(  957): 1. Waiting for slave to accept master's connection ...
+I/... ParaApp(  957): JGFkernel Sending Serializable with payload bytes: 48351
+I/... ParaApp(  957): calls sendToSlave() for nthread = 6 of length = 48351
+I/... ParaApp(  957): in sendToSlave, isUDP = false
+I/... ParaApp(  957): Master using TCP to send byte[] of length = 48351
+I/... ParaApp(  957): in master port: 7007, in a new thread
+I/... ParaApp(  957): #################################
+I/... ParaApp(  957): making piece of nthread = 5
+I/... SparseRunner (  957): initializing ...
+I/... SparseRunner (  957): created.
+I/... ParaApp(  957): Serializing SparseRunner into Serializable for region 5,0...
+I/*** TCPmasterTranceiveThread(  957): 1. Waiting for slave to accept master's connection ...
+I/... ParaApp(  957): JGFkernel Sending Serializable with payload bytes: 48351
+I/... ParaApp(  957): calls sendToSlave() for nthread = 5 of length = 48351
+I/... ParaApp(  957): in sendToSlave, isUDP = false
+I/... ParaApp(  957): Master using TCP to send byte[] of length = 48351
+I/... ParaApp(  957): in master port: 7006, in a new thread
+I/... ParaApp(  957): #################################
+I/... ParaApp(  957): making piece of nthread = 4
+I/... SparseRunner (  957): initializing ...
+I/... SparseRunner (  957): created.
+I/... ParaApp(  957): Serializing SparseRunner into Serializable for region 4,0...
+I/*** TCPmasterTranceiveThread(  957): 1. Waiting for slave to accept master's connection ...
+D/dalvikvm(  957): GC_CONCURRENT freed 380K, 52% free 2873K/5895K, external 2002K/2137K, paused 1ms+2ms
+I/... ParaApp(  957): JGFkernel Sending Serializable with payload bytes: 48351
+I/... ParaApp(  957): calls sendToSlave() for nthread = 4 of length = 48351
+I/... ParaApp(  957): in sendToSlave, isUDP = false
+I/... ParaApp(  957): Master using TCP to send byte[] of length = 48351
+I/... ParaApp(  957): in master port: 7005, in a new thread
+I/... ParaApp(  957): #################################
+I/... ParaApp(  957): making piece of nthread = 3
+I/... SparseRunner (  957): initializing ...
+I/... SparseRunner (  957): created.
+I/... ParaApp(  957): Serializing SparseRunner into Serializable for region 3,0...
+I/*** TCPmasterTranceiveThread(  957): 1. Waiting for slave to accept master's connection ...
+I/... ParaApp(  957): JGFkernel Sending Serializable with payload bytes: 48351
+I/... ParaApp(  957): calls sendToSlave() for nthread = 3 of length = 48351
+I/... ParaApp(  957): in sendToSlave, isUDP = false
+I/... ParaApp(  957): Master using TCP to send byte[] of length = 48351
+I/... ParaApp(  957): in master port: 7004, in a new thread
+I/... ParaApp(  957): #################################
+I/... ParaApp(  957): making piece of nthread = 2
+I/... SparseRunner (  957): initializing ...
+I/... SparseRunner (  957): created.
+I/... ParaApp(  957): Serializing SparseRunner into Serializable for region 2,0...
+I/*** TCPmasterTranceiveThread(  957): 1. Waiting for slave to accept master's connection ...
+I/... ParaApp(  957): JGFkernel Sending Serializable with payload bytes: 48351
+I/... ParaApp(  957): calls sendToSlave() for nthread = 2 of length = 48351
+I/... ParaApp(  957): in sendToSlave, isUDP = false
+I/... ParaApp(  957): Master using TCP to send byte[] of length = 48351
+I/... ParaApp(  957): in master port: 7003, in a new thread
+I/... ParaApp(  957): #################################
+I/... ParaApp(  957): making piece of nthread = 1
+I/... SparseRunner (  957): initializing ...
+I/... SparseRunner (  957): created.
+I/... ParaApp(  957): Serializing SparseRunner into Serializable for region 1,0...
+I/*** TCPmasterTranceiveThread(  957): 1. Waiting for slave to accept master's connection ...
+I/... ParaApp(  957): JGFkernel Sending Serializable with payload bytes: 48351
+I/... ParaApp(  957): calls sendToSlave() for nthread = 1 of length = 48351
+I/... ParaApp(  957): in sendToSlave, isUDP = false
+I/... ParaApp(  957): Master using TCP to send byte[] of length = 48351
+I/... ParaApp(  957): in master port: 7002, in a new thread
+I/... ParaApp(  957): #################################
+I/... ParaApp(  957): making piece of nthread = 0
+I/... SparseRunner (  957): initializing ...
+I/... SparseRunner (  957): created.
+I/... ParaApp(  957): Serializing SparseRunner into Serializable for region 0,0...
+I/*** TCPmasterTranceiveThread(  957): 1. Waiting for slave to accept master's connection ...
+I/... ParaApp(  957): JGFkernel Sending Serializable with payload bytes: 48351
+I/... ParaApp(  957): calls sendToSlave() for nthread = 0 of length = 48351
+I/... ParaApp(  957): in sendToSlave, isUDP = false
+I/... ParaApp(  957): Master using TCP to send byte[] of length = 48351
+I/... ParaApp(  957): in master port: 7001, in a new thread
+I/... ParaApp(  957): JGFrun() finished ^^^^^^^^^^^^^
+I/*** TCPmasterTranceiveThread(  957): 1. Waiting for slave to accept master's connection ...
+I/*** TCPslaveThread(  957): inside TCPslaveThread run
+I/*** TCPslaveThread(  957): -- TCPslaveThread -- about to connect to master
+I/*** TCPslaveThread(  957): MyIP = 192.168.5.20 myPort = 7008
+I/*** TCPmasterTranceiveThread(  957): 2. a Slave's Connection accepted :)
+I/*** TCPmasterTranceiveThread(  957): 3. send data
+I/*** TCPmasterTranceiveThread(  957): 4. flush os
+I/*** TCPmasterTranceiveThread(  957): 5. shutdownOutput
+I/*** TCPmasterTranceiveThread(  957): 6. getting reply
+I/*** TCPslaveThread(  957): slave connecting to master, to get work ....
+D/dalvikvm(  957): GC_CONCURRENT freed 511K, 51% free 3072K/6215K, external 2002K/2137K, paused 1ms+2ms
+I/*** TCPmasterTranceiveThread(  957): master is getting reply...... 
+I/*** TCPmasterTranceiveThread(  957): master got input stream
+I/*** TCPslaveThread(  957): slave connected to master, getting stream
+I/*** TCPslaveThread(  957): !!!! Received TCP payload from master of 48351 bytes
+I/*** TCPslaveThread(  957): multiply worker / my portion of the matrix: 
+I/*** TCPslaveThread(  957): Bytes --> S.R.
+I/*** TCPslaveThread(  957): srFromBytes: start ....
+I/*** TCPslaveThread(  957): srFromBytes: ... got s.r.!
+I/*** TCPslaveThread(  957): run my work/my portion of matrix!
+I/... SparseRunner (  957): running...
+I/... SparseRunner (  957): finished.
+I/*** TCPslaveThread(  957): reply to master: 
+I/*** TCPslaveThread(  957): slave sends reply back to master Start ...
+I/*** TCPslaveThread(  957): . send data
+I/*** TCPslaveThread(  957): . flush os
+I/*** TCPslaveThread(  957): . slave closes socket
+I/*** TCPmasterTranceiveThread(  957): !!!! Received TCP payload from slave of 48351 bytes
+I/*** TCPslaveThread(  957): ... slave reply back to master Finished
+I/*** TCPslaveThread(  957): :D:D Work finished in 156 ms!
+I/*** TCPslaveThread(  957): end of slaveTCPThread!
+I/*** TCPmasterTranceiveThread(  957):  >> master got bytes converted into S.R. id = 7
+I/*** TCPmasterTranceiveThread(  957): send S.R. through handler
+I/##### Main Activity(  957):  << in main activity, sr's id: 7
+I/... ParaApp(  957): starting to handle completed sparserunner
+I/... ParaApp(  957): updated barrier_count = 1 nthreads = 8
+I/*** TCPmasterTranceiveThread(  957): 2. a Slave's Connection accepted :)
+I/*** TCPmasterTranceiveThread(  957): 3. send data
+I/*** TCPmasterTranceiveThread(  957): 4. flush os
+I/*** TCPmasterTranceiveThread(  957): 5. shutdownOutput
+I/*** TCPmasterTranceiveThread(  957): 6. getting reply
+D/dalvikvm(  957): GC_FOR_MALLOC freed 665K, 54% free 3039K/6471K, external 2002K/2137K, paused 84ms
+I/*** TCPmasterTranceiveThread(  957): master is getting reply...... 
+I/*** TCPmasterTranceiveThread(  957): master got input stream
+I/*** TCPmasterTranceiveThread(  957): !!!! Received TCP payload from slave of 48351 bytes
+I/*** TCPmasterTranceiveThread(  957):  >> master got bytes converted into S.R. id = 6
+I/*** TCPmasterTranceiveThread(  957): send S.R. through handler
+I/##### Main Activity(  957):  << in main activity, sr's id: 6
+I/... ParaApp(  957): starting to handle completed sparserunner
+I/... ParaApp(  957): updated barrier_count = 2 nthreads = 8
+I/*** TCPmasterTranceiveThread(  957): 2. a Slave's Connection accepted :)
+I/*** TCPmasterTranceiveThread(  957): 3. send data
+I/*** TCPmasterTranceiveThread(  957): 4. flush os
+I/*** TCPmasterTranceiveThread(  957): 5. shutdownOutput
+I/*** TCPmasterTranceiveThread(  957): 6. getting reply
+I/*** TCPmasterTranceiveThread(  957): master is getting reply...... 
+I/*** TCPmasterTranceiveThread(  957): master got input stream
+I/*** TCPmasterTranceiveThread(  957): !!!! Received TCP payload from slave of 48351 bytes
+I/*** TCPmasterTranceiveThread(  957):  >> master got bytes converted into S.R. id = 5
+I/*** TCPmasterTranceiveThread(  957): send S.R. through handler
+I/##### Main Activity(  957):  << in main activity, sr's id: 5
+I/... ParaApp(  957): starting to handle completed sparserunner
+I/... ParaApp(  957): updated barrier_count = 3 nthreads = 8
+I/*** TCPmasterTranceiveThread(  957): 2. a Slave's Connection accepted :)
+I/*** TCPmasterTranceiveThread(  957): 3. send data
+I/*** TCPmasterTranceiveThread(  957): 4. flush os
+I/*** TCPmasterTranceiveThread(  957): 5. shutdownOutput
+I/*** TCPmasterTranceiveThread(  957): 6. getting reply
+D/dalvikvm(  957): GC_FOR_MALLOC freed 633K, 55% free 2952K/6471K, external 2002K/2137K, paused 13ms
+I/*** TCPmasterTranceiveThread(  957): master is getting reply...... 
+I/*** TCPmasterTranceiveThread(  957): master got input stream
+I/*** TCPmasterTranceiveThread(  957): 2. a Slave's Connection accepted :)
+I/*** TCPmasterTranceiveThread(  957): 3. send data
+I/*** TCPmasterTranceiveThread(  957): 4. flush os
+I/*** TCPmasterTranceiveThread(  957): 5. shutdownOutput
+I/*** TCPmasterTranceiveThread(  957): 6. getting reply
+I/*** TCPmasterTranceiveThread(  957): master is getting reply...... 
+I/*** TCPmasterTranceiveThread(  957): master got input stream
+I/*** TCPmasterTranceiveThread(  957): 2. a Slave's Connection accepted :)
+I/*** TCPmasterTranceiveThread(  957): 3. send data
+I/*** TCPmasterTranceiveThread(  957): 4. flush os
+I/*** TCPmasterTranceiveThread(  957): 5. shutdownOutput
+I/*** TCPmasterTranceiveThread(  957): 6. getting reply
+D/dalvikvm(  957): GC_FOR_MALLOC freed 80K, 52% free 3162K/6471K, external 2002K/2137K, paused 13ms
+I/*** TCPmasterTranceiveThread(  957): master is getting reply...... 
+I/*** TCPmasterTranceiveThread(  957): master got input stream
+I/*** TCPmasterTranceiveThread(  957): !!!! Received TCP payload from slave of 48351 bytes
+I/*** TCPmasterTranceiveThread(  957):  >> master got bytes converted into S.R. id = 3
+I/*** TCPmasterTranceiveThread(  957): !!!! Received TCP payload from slave of 48351 bytes
+I/*** TCPmasterTranceiveThread(  957): send S.R. through handler
+I/##### Main Activity(  957):  << in main activity, sr's id: 3
+I/... ParaApp(  957): starting to handle completed sparserunner
+I/... ParaApp(  957): updated barrier_count = 4 nthreads = 8
+I/*** TCPmasterTranceiveThread(  957):  >> master got bytes converted into S.R. id = 2
+I/*** TCPmasterTranceiveThread(  957): send S.R. through handler
+I/##### Main Activity(  957):  << in main activity, sr's id: 2
+I/... ParaApp(  957): starting to handle completed sparserunner
+I/... ParaApp(  957): updated barrier_count = 5 nthreads = 8
+I/*** TCPmasterTranceiveThread(  957): 2. a Slave's Connection accepted :)
+I/*** TCPmasterTranceiveThread(  957): 3. send data
+I/*** TCPmasterTranceiveThread(  957): 4. flush os
+I/*** TCPmasterTranceiveThread(  957): 5. shutdownOutput
+I/*** TCPmasterTranceiveThread(  957): 6. getting reply
+D/dalvikvm(  957): GC_FOR_MALLOC freed 546K, 56% free 2965K/6599K, external 2002K/2137K, paused 13ms
+I/*** TCPmasterTranceiveThread(  957): master is getting reply...... 
+I/*** TCPmasterTranceiveThread(  957): master got input stream
+I/*** TCPmasterTranceiveThread(  957): !!!! Received TCP payload from slave of 48351 bytes
+I/*** TCPmasterTranceiveThread(  957):  >> master got bytes converted into S.R. id = 1
+I/*** TCPmasterTranceiveThread(  957): send S.R. through handler
+I/##### Main Activity(  957):  << in main activity, sr's id: 1
+I/... ParaApp(  957): starting to handle completed sparserunner
+I/... ParaApp(  957): updated barrier_count = 6 nthreads = 8
+I/*** TCPmasterTranceiveThread(  957): !!!! Received TCP payload from slave of 48364 bytes
+I/*** TCPmasterTranceiveThread(  957):  >> master got bytes converted into S.R. id = 4
+I/*** TCPmasterTranceiveThread(  957): send S.R. through handler
+I/##### Main Activity(  957):  << in main activity, sr's id: 4
+I/... ParaApp(  957): starting to handle completed sparserunner
+I/... ParaApp(  957): updated barrier_count = 7 nthreads = 8
+I/*** TCPmasterTranceiveThread(  957): 2. a Slave's Connection accepted :)
+I/*** TCPmasterTranceiveThread(  957): 3. send data
+I/*** TCPmasterTranceiveThread(  957): 4. flush os
+I/*** TCPmasterTranceiveThread(  957): 5. shutdownOutput
+I/*** TCPmasterTranceiveThread(  957): 6. getting reply
+I/*** TCPmasterTranceiveThread(  957): master is getting reply...... 
+I/*** TCPmasterTranceiveThread(  957): master got input stream
+I/*** TCPmasterTranceiveThread(  957): !!!! Received TCP payload from slave of 48351 bytes
+I/*** TCPmasterTranceiveThread(  957):  >> master got bytes converted into S.R. id = 0
+I/*** TCPmasterTranceiveThread(  957): send S.R. through handler
+I/##### Main Activity(  957):  << in main activity, sr's id: 0
+I/... ParaApp(  957): starting to handle completed sparserunner
+I/... ParaApp(  957): updated barrier_count = 8 nthreads = 8
+I/... ParaApp(  957): Yay barrier count is equal to nthreads!
+I/... ParaApp(  957): :D:D:D:D:D:D:D:D:D:D:D:D:D:D:D:D:D:D:D
+I/... ParaApp(  957): :D:D:D:D !!!! DONE !!!!!!!! :D:D:D:D:D:D:D
+I/... ParaApp(  957): :D:D:D:D:D:D:D:D:D:D:D:D:D:D:D:D:D:D:D
+I/... ParaApp(  957): JGFrun finished in 10265ms
+I/... ParaApp(  957): All slaves finished in 10223ms
+I/... ParaApp(  957): ******** end of benchmark *********
