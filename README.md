@@ -14,7 +14,7 @@ Depending on using UDP or TCP, the active end of the communication (leader-end o
 * Choice of using TCP (more reliable) or UDP (a bit faster)
 * Sparse Matrix code taken from [Java Grande Forum multi-threaded benchmarks][jgf]
 
-This app runs Java Grande Forum's sparse matrix multiplication on different phones, where each phone completes a different thread of computation and sends its results back to the preselected master.  UDP communication is used and that might account for 5% of packet disappearance (slave didn't get a packet or the master didn't get the response from slave). Later we added TCP and no packets were lost. TCP only takes about 300ms longer to run than UDP.
+This app runs Java Grande Forum's sparse matrix multiplication on different phones, where each phone completes a different thread of computation and sends its results back to the preselected master.  UDP communication is used and that might account for 5% of packet disappearance (slave didn't get a packet or the master didn't get the response from slave). Later we added TCP and no packets were lost. TCP only takes about 200ms longer to run than UDP.
 
 This is a model for building distributed apps that can be used to run tasks other than Sparse Matrix Multiplication.
 
