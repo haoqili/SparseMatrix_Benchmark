@@ -1,6 +1,15 @@
 Android Parallel Sparse Matrix Multiplication Benchmark
 ================
 
+This is a benchmark for doing sparse matrix on multiple phones over ad-hoc Wifi. There is 1 leader phone and multiple slave phones (the leader also has a slave component).
+
+1. Leader sends out Sparse Matrix task to all the slaves
+2. Slaves compute their portions
+3. Each slave reply to leader their results
+4. Leader gathers the results and outputs a final answer
+
+Depending on using UDP or TCP, the active end of the communication (leader-end or slave-end) is different.
+
 * Each thread runs on a different phone
 * Choice of using TCP (more reliable) or UDP (a bit faster)
 * Sparse Matrix code taken from [Java Grande Forum multi-threaded benchmarks][jgf]
