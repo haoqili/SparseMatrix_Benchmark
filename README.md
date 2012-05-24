@@ -14,6 +14,10 @@ Depending on using UDP or TCP, the active end of the communication (leader-end o
 * Choice of using TCP (more reliable) or UDP (a bit faster)
 * Sparse Matrix code taken from [Java Grande Forum multi-threaded benchmarks][jgf]
 
+This app runs Java Grande Forum's sparse matrix multiplication on different phones, where each phone completes a different thread of computation and sends its results back to the preselected master.  UDP communication is used and that might account for 5% of packet disappearance (slave didn't get a packet or the master didn't get the response from slave). Later we added TCP and no packets were lost. TCP only takes about 300ms longer to run than UDP.
+
+This is a model for building distributed apps that can be used to run tasks other than Sparse Matrix Multiplication.
+
 Current Status
 -----------
 * Master runs n threads on itself and n-1 slaves.
@@ -33,7 +37,7 @@ How to Run
         `netcfg` and you should see the changed IP
 4. Based on whether you want to use UDP or TCP, press its appropriate buttons in the order displayed on the screen
 
-        E.G. if you want to use UDP, you see: `UDP 1. Start Slaves` and `UDP 2. Start Master`. So you press the 1st button on the slave phone (we only have one slave as of now) and then press the 2nd button on the master phone.
+   E.G. if you want to use UDP, you see: `UDP 1. Start Slaves` and `UDP 2. Start Master`. So you press the 1st button on the slave phone (we only have one slave as of now) and then press the 2nd button on the master phone.
 5. Observe `******* end of benchmark *********` note the "ms" times right before that line
 6. Get ready for the next run by:
 
